@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import service from "./bin/fetch";
+import remconfig from './config/rem.config'
+remconfig()
 Vue.config.productionTip = false
 Vue.prototype.$fetch = service;
 /* eslint-disable no-new */

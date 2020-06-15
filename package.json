@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "postcss-px-to-viewport": "^1.1.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
