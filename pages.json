@@ -1,16 +1,147 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/tabBar/home/home",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/tabBar/category/category",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/tabBar/shopCart/shopCart",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/tabBar/my/my",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		}, {
+			"path": "pages/journalism/journalism",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/msg/msg",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/membership/membership",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/capitalRecord/capitalRecord",
+           "style": {
+           	"app-plus": {
+           		"titleNView": false,
+           		"backgroundTextStyle": "dark"
+           	},
+           	"enablePullDownRefresh": false
+           }
+        }
+        ,{
+            "path" : "pages/rankingList/rankingList",
+            "style": {
+            	"app-plus": {
+            		"titleNView": false,
+            		"backgroundTextStyle": "dark"
+            	},
+            	"enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/Withdrawal/Withdrawal",
+            "style": {
+            	"app-plus": {
+            		"titleNView": false,
+            		"backgroundTextStyle": "dark"
+            	},
+            	"enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/withdrawalList/withdrawalList",
+            "style": {
+            	"app-plus": {
+            		"titleNView": false,
+            		"backgroundTextStyle": "dark"
+            	},
+            	"enablePullDownRefresh": false
+            }
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "卡网通",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#333333",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/tabBar/home/home",
+			"enablePullDownRefresh": false,
+			"text": "首页",
+			"iconPath": "static/image/tab/home.png",
+			"selectedIconPath": "static/image/tab/homeZ.png"
+		}, {
+			"pagePath": "pages/tabBar/category/category",
+			"text": "指南",
+			"iconPath": "static/image/tab/category.png",
+			"selectedIconPath": "static/image/tab/categoryZ.png"
+		}, {
+			"pagePath": "pages/tabBar/shopCart/shopCart",
+			"text": "团队",
+			"iconPath": "./static/image/tab/shopCart.png",
+			"selectedIconPath": "static/image/tab/shopCartZ.png"
+		}, {
+			"pagePath": "pages/tabBar/my/my",
+			"text": "我的",
+			"iconPath": "static/image/tab/my.png",
+			"selectedIconPath": "static/image/tab/myZ.png"
+		}]
 	}
 }

@@ -1,0 +1,107 @@
+<template>
+	<view>
+		<!-- tab -->
+		<view class="background_colorff">
+			<view class="item_tab" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index)" :style="tabIndex == index ?'color:#374CE5' :'' ">
+				{{item.name}}
+			</view>
+		</view>
+
+		<!-- 列表 -->
+
+		<view class="list_width padding_bottom3 padding_top2">
+			<view class="moudel_list" v-for="(item,index) in [1,2,3,4,5]" :key="index">
+				<view class="top_border"></view>
+				<view class="uni-flex display_space">
+					<view class="font_size30 ">
+						系统通知
+					</view>
+					<view class="font_size22 font_colorcc ">
+						2020-03-11
+					</view>
+				</view>
+				<view class="font_size26 lsit_hidden">
+					请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤...
+				</view>
+			</view>
+		</view>
+
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				tabList: [{
+						name: '系统通知'
+					},
+					{
+						name: '服务通知'
+					},
+					{
+						name: '最新活动'
+					}
+				],
+				tabIndex: 0,
+			}
+		},
+		methods: {
+			tabSwitch(index) {
+				this.tabIndex = index
+			}
+		}
+	}
+</script>
+
+<style lang="less">
+	page {
+		background-color: #f8f9fc;
+	}
+
+	.item_tab {
+		display: inline-block;
+		width: 33%;
+		text-align: center;
+		color: #999999;
+		font-size: 28upx;
+		height: 88upx;
+		line-height: 88upx;
+	}
+
+	.list_width {
+		width: 94%;
+		margin-left: 3%;
+	}
+
+	.moudel_list {
+		height: 176upx;
+		background-color: #FFFFFF;
+		border-radius: 20upx;
+		padding: 3%;
+		box-shadow: 0pt 2upx 20upx 0pt #dde2ef;
+		margin-top: 30upx;
+	}
+
+	.top_border {
+		width: 13upx;
+		height: 13upx;
+		border-radius: 50%;
+		background-color: #374CE5;
+		margin-left: 99%;
+	}
+
+	.lsit_hidden {
+		overflow: hidden;
+		word-break: break-all;
+		/* break-all(允许在单词内换行。) */
+		text-overflow: ellipsis;
+		/* 超出部分省略号 */
+		display: -webkit-box;
+		/** 对象作为伸缩盒子模型显示 **/
+		-webkit-box-orient: vertical;
+		/** 设置或检索伸缩盒对象的子元素的排列方式 **/
+		-webkit-line-clamp: 2;
+		/** 显示的行数 **/
+	}
+</style>

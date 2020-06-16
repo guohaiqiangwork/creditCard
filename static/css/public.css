@@ -1,0 +1,412 @@
+.background_colorff {
+	background-color: #FFFFFF;
+}
+
+.background_colorf3 {
+	background-color: #F34B4B;
+}
+
+.background_color00 {
+	background-color: #00A398;
+}
+
+.display_flex {
+	display: flex;
+}
+
+.display_inline {
+	display: inline-block;
+}
+
+.display_center {
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.display_right {
+	justify-content: right;
+	-webkit-justify-content: right;
+}
+
+.display_left {
+	justify-content: left;
+	-webkit-justify-content: left;
+}
+
+.display_space {
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.width15 {
+	width: 15%;
+}
+
+.width18 {
+	width: 18%;
+}
+
+.width20 {
+	width: 20%;
+}
+
+.width25 {
+	width: 25%;
+}
+
+.width30 {
+	width: 30%;
+}
+
+.width33 {
+	width: 33.3%;
+}
+
+.width35 {
+	width: 35%;
+}
+
+.width40 {
+	width: 40%;
+}
+
+.width45 {
+	width: 45%;
+}
+
+.width49 {
+	width: 49%;
+}
+
+.width50 {
+	width: 50%;
+}
+
+.width55 {
+	width: 55%;
+}
+.width60 {
+	width: 60%;
+}
+.width65 {
+	width: 65%;
+}
+
+.width70 {
+	width: 70%;
+}
+
+.width66 {
+	width: 66%;
+}
+
+.width75 {
+	width: 75%;
+}
+
+.width80 {
+	width: 80%;
+}
+
+.width90 {
+	width: 90%;
+}
+
+.text_left {
+	text-align: left;
+}
+
+.text_center {
+	text-align: center;
+}
+
+.text_right {
+	text-align: right;
+}
+
+.margin_top2 {
+	margin-top: 2%;
+}
+
+.margin_top3 {
+	margin-top: 3%;
+}
+
+.margin_top5 {
+	margin-top: 5%;
+}
+
+.margin_top8 {
+	margin-top: 8%;
+}
+
+.margin_top18 {
+	margin-top: 18%;
+}
+
+.margin_left1 {
+	margin-left: 1%;
+}
+
+.margin_left2 {
+	margin-left: 2%;
+}
+
+.margin_left3 {
+	margin-left: 3%;
+}
+
+.margin_left5 {
+	margin-left: 5%
+}
+.margin_left8 {
+	margin-left: 8%
+}
+.margin_left100 {
+	margin-left: 100upx
+}
+
+.margin_left30 {
+	margin-left: 30upx
+}
+
+.margin_left40 {
+	margin-left: 40upx
+}
+
+.margin_left125 {
+	margin-left: 125upx
+}
+
+.margin_right3 {
+	margin-right: 3%;
+}
+
+.padding_bottom2 {
+	padding-bottom: 2%;
+}
+
+.padding_top2{
+	padding-top: 2%;
+}
+.padding_bottom3 {
+	padding-bottom: 3%;
+}
+
+.padding_top3 {
+	padding-top: 3%;
+}
+
+.padding_left2 {
+	padding-left: 2%;
+}
+
+.font_size60 {
+	font-size: 60upx;
+}
+
+.font_size50 {
+	font-size: 50upx;
+}
+
+.font_size44 {
+	font-size: 44upx;
+}
+
+.font_size40 {
+	font-size: 40upx;
+}
+
+.font_size36 {
+	font-size: 36upx;
+}
+
+.font_size35 {
+	font-size: 35upx;
+}
+
+.font_size34 {
+	font-size: 34upx;
+}
+
+.font_size32 {
+	font-size: 32upx;
+}
+
+.font_size30 {
+	font-size: 30upx;
+}
+
+.font_size28 {
+	font-size: 28upx;
+}
+
+.font_size26 {
+	font-size: 26upx;
+}
+
+.font_size24 {
+	font-size: 24upx;
+}
+
+.font_size22 {
+	font-size: 22upx;
+}
+.font_size20 {
+	font-size: 20upx;
+}
+.font_colorf3 {
+	color: #F34B4B;
+}
+
+.font_colorff {
+	color: #FFFFFF;
+}
+
+.font_color33 {
+	color: #333333;
+}
+.font_colorfc{
+	color: #FCD07D;
+}
+
+.font_colorde {
+	color: #DEB14E;
+}
+
+.font_color66 {
+	color: #666666;
+}
+
+.font_color99 {
+	color: #999999;
+}
+
+.font_color00 {
+	color: #00A398;
+}
+
+.font_colorcc {
+	color: #CCCCCC;
+}
+
+.font_colorc1 {
+	color: #C19B87;
+}
+
+.font_weight600 {
+	font-weight: 600;
+}
+
+.font_weight500 {
+	font-weight: 500;
+}
+
+.font_weight100 {
+	font-weight: 100;
+}
+
+
+.mar_bt2 {
+	margin-bottom: 20upx;
+}
+
+.mar_bt14 {
+	margin-bottom: 14upx;
+}
+
+.text_hidden {
+	/* 	text-overflow: ellipsis;
+	overflow: hidden; */
+
+	overflow: hidden;
+	word-break: break-all;
+	/* break-all(允许在单词内换行。) */
+	text-overflow: ellipsis;
+	/* 超出部分省略号 */
+	display: -webkit-box;
+	/** 对象作为伸缩盒子模型显示 **/
+	-webkit-box-orient: vertical;
+	/** 设置或检索伸缩盒对象的子元素的排列方式 **/
+	-webkit-line-clamp: 1;
+	/** 显示的行数 **/
+}
+
+/* tabar页自定义头部 父元素需固定头部高度 */
+.page {
+	padding-top: 128upx;
+	padding-bottom: 5%;
+
+}
+
+.uni-scroll-view::-webkit-scrollbar {
+	/* 隐藏滚动条，但依旧具备可以滚动的功能 */
+	display: none
+}
+/* image { pointer-events: none; } */
+.image_width_height100 {
+	width: 100%;
+	height: 100%;
+}
+
+.border_bottom {
+	border-bottom: 1px solid #EEEEEE;
+}
+
+.jb_view {
+	background: linear-gradient(to right, #EDCB80, #A58747);
+}
+
+/* 搜索框 */
+.searce_moudel {
+	width: 94%;
+	margin-left: 3%;
+	// margin-top: 3%;
+	-moz-box-shadow: 0px 5px 5px #CCCCCC;
+	-webkit-box-shadow: 0px 0px 5px #CCCCCC;
+	box-shadow: 0px 0px 5px #CCCCCC;
+	height: 60upx;
+	border-radius: 40upx;
+	line-height: 60upx;
+}
+
+.searce_left {
+	width: 5%;
+	margin-left: 2%;
+	margin-top: 1%;
+
+}
+
+.searce_right {
+	margin-top: 1%;
+	margin-left: 2%;
+}
+
+.searce_width {
+	width: 34upx;
+	height: 34upx;
+	margin-top: 1%;
+}
+
+.title_top {
+	height: 40upx;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.header_title_img{
+	width: 16upx;
+	height: 28upx;
+}
+.header_title_imgr{
+	width: 36upx;
+	height: 36upx;
+}
+.page_width{
+	width: 94%;
+	margin-left: 3%;
+}
+
+page {
+		background-color: #f8f9fc;
+	}
