@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div v-for="(item,index) in  ceshiList" :key="index">
-      <img :src=" item.picture" style="width:1vw"/>
+      <img :src=" item.picture" style="width:"/>
     </div>
   </div>
 </template>
