@@ -2,7 +2,7 @@
 	<view>
 		<!-- 内容块 -->
 		<view class="">
-			<image src="../../../static/image/ces.png" mode="" class="top_img"></image>
+			<image src="../../../static/image/ces.png" mode="" class="top_img"  @click="goToPage('bindingIdentity')"></image>
 			<view class="uni-flex order_moudel">
 				<view class="text_center width33" @click="goToPage(item.falg)" style="margin-top: 30upx;" v-for="(item,index) in orderList" :key="index">
 					<view class="">
@@ -48,7 +48,7 @@
 							</view>
 						</view>
 						<view class="uni-flex">
-							<view class="width50 text_center">
+							<view class="width50 text_center" @click="goToPage('commissionRecord')">
 								<view class="font_size24">
 									佣金总额（元）
 								</view>
@@ -56,7 +56,7 @@
 									40,000.00
 								</view>
 							</view>
-							<view class="width50 text_center">
+							<view class="width50 text_center" @click="goToPage('tcRecord')">
 								<view class="font_size24">
 									提成总额（元）
 								</view>
@@ -82,23 +82,34 @@
 				<!-- 排行榜列表 -->
 				<view class="">
 					<view class="uni-flex border_bottom padding_bottom2 padding_top2" v-for="(item,index) in listOne" :key="index">
-						<view class="width10 margin_top3">
-							<image :src="'../../../static/image/holdAll/vip' + item.vip + '.png'" class="list_vip" mode=""></image>
-						</view>
 						<view class="width15 text_center">
 							<image :src="item.imgUrl" class="list_header" mode=""></image>
 						</view>
-						<view class="width45">
-							<view class="">
-								{{item.name}}
+						<view class="width70">
+							<view class="uni-flex ">
+								<view class="">
+									{{item.name}}
+								</view>
+								<view class="">
+									<view class="my_vipbj">
+										普通会员
+									</view>
+								</view>
 							</view>
-							<view class="">
-								ID:{{item.id}}
+							
+							<view class=" uni-flex ">
+								<view class="">
+									<image src="../../../static/image/holdAll/goMOney.png" class="list_money" mode=""></image>
+								</view>
+								<view class="margin_left2 font_size30" style="margin-top:-1% ;">
+										{{item.number}}
+								</view>
+
 							</view>
 						</view>
-						<view class="margin_top3  width30 text_right">
-								<image src="../../../static/image/holdAll/goMOney.png" class="list_money" mode=""></image>
-								{{item.number}}
+						
+						<view class="width10 margin_top3">
+							<image :src="'../../../static/image/holdAll/vip' + item.vip + '.png'" class="list_vip" mode=""></image>
 						</view>
 					</view>
 			
@@ -106,7 +117,7 @@
 				
 				<!-- 二维码 -->
 				
-				<view class="">
+				<view class=""  @click="onClick">
 					<image src="../../../static/image/icon/homeE.png" mode="" class="bottom_img"></image>
 				</view>
 
@@ -129,13 +140,13 @@
 					},
 					{
 						name: '新闻资讯',
-						url: '../../../static/image/icon/order2.png',
+						url: '../../../static/image/icon/order3.png',
 						tabClass: 'order2_img',
 						falg:'journalism'
 					},
 					{
 						name: '消息中心',
-						url: '../../../static/image/icon/order3.png',
+						url: '../../../static/image/icon/order2.png',
 						tabClass: 'order3_img',
 						falg:'msg'
 					}
@@ -162,22 +173,59 @@
 						name: '用户1',
 						id: '78687567567575'
 					}
-				]
-
+				],
+				
+				
+				funds:''//资金明细
 
 			}
 		},
 		onShow() {
-			
+			this.init()
 		},
 		methods: {
+			
+			init(){
+				// 获取查询首页用资金明细
+				var data = {
+					memberId:'1'
+				}
+				this.$http.get('/acc/funds',data).then(res => {
+					console.log(JSON.stringify(res));
+				
+					if (res.data.code == 200) {
+						this.funds = res.data.data
+					}
+				}).catch(err => {
+				
+				})
+			},
+			
+			
+			
 			goToPage(falg){
 				console.log(falg)
 				let urlFalg = falg
 				uni.navigateTo({
 					url:'../../' + urlFalg + '/' + urlFalg
 				})
-			}
+			},
+			// 复制
+			 onClick(){
+				    let url = encodeURIComponent('www.tongfupay.net');  // 注意一定要encodeURIComponent
+				    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5d7f40ad90aaa137&redirect_uri='+ url+'&response_type=code&scope=${DefaultConfig.loginWay}&state=#wechat_redirect'
+				
+			        this.$copyText('你好啊勺子').then(
+			      res => {
+			               console.log('复制成功')
+			      },
+			      err => {
+			         console.log('复制失败')
+			      }
+			         );
+			      }
+			
+			
 			
 		}
 	}
@@ -270,5 +318,18 @@
 		height: 140upx;
 		width: 100%;
 		margin-top: 40upx;
+	}
+	.my_vipbj {
+		width: 130upx;
+		height: 30upx;
+		background: url(../../../static/image/icon/vipb.png) no-repeat;
+		font-size: 22upx;
+		background-size: 100%;
+		color: #FFE600;
+		text-align: right;
+		line-height: 30upx;
+		margin-top: 10upx;
+		margin-left: 10upx;
+		padding-right: 1%;
 	}
 </style>

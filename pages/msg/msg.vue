@@ -10,7 +10,7 @@
 		<!-- 列表 -->
 
 		<view class="list_width padding_bottom3 padding_top2">
-			<view class="moudel_list" v-for="(item,index) in [1,2,3,4,5]" :key="index">
+			<view class="moudel_list" v-for="(item,index) in [1,2,3,4,5]" :key="index" @click="goToDetail()">
 				<view class="top_border"></view>
 				<view class="uni-flex display_space">
 					<view class="font_size30 ">
@@ -23,6 +23,13 @@
 				<view class="font_size26 lsit_hidden">
 					请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤...
 				</view>
+			</view>
+		</view>
+		
+		<view class="text_center" >
+			<image src="../../static/image/noContent/noMsg.png" mode="" style="width: 392upx;height: 410upx;"></image>
+			<view class="font_size28 font_colorcc">
+				暂无提成记录~
 			</view>
 		</view>
 
@@ -49,6 +56,11 @@
 		methods: {
 			tabSwitch(index) {
 				this.tabIndex = index
+			},
+			goToDetail(){
+				uni.navigateTo({
+					url:'../msgDetail/msgDetail'
+				})
 			}
 		}
 	}

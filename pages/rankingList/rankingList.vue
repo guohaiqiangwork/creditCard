@@ -18,7 +18,7 @@
 		</view>
 
 		<view class="rank_moudel">
-			<view class="uni-flex border_bottom padding_bottom2 padding_top2" v-for="(item,index) in listOne" :key="index">
+			<!-- <view class="uni-flex border_bottom padding_bottom2 padding_top2" v-for="(item,index) in listOne" :key="index">
 				<view class="width10 margin_top3">
 					<image :src="'../../static/image/holdAll/vip' + item.vip + '.png'" class="list_vip" mode=""></image>
 				</view>
@@ -32,7 +32,40 @@
 					<image src="../../static/image/holdAll/goMOney.png" class="list_money" mode=""></image>
 					{{item.number}}
 				</view>
+			</view> -->
+
+			<view class="uni-flex border_bottom padding_bottom2 padding_top3" v-for="(item,index) in listOne" :key="index">
+				<view class="width15 text_center">
+					<image :src="item.imgUrl" class="list_header" mode=""></image>
+				</view>
+				<view class="width70">
+					<view class="uni-flex ">
+						<view class="">
+							{{item.name}}
+						</view>
+						<view class="">
+							<view class="my_vipbj">
+								普通会员
+							</view>
+						</view>
+					</view>
+
+					<view class=" uni-flex ">
+						<view class="">
+							<image src="../../static/image/holdAll/goMOney.png" class="list_money" mode=""></image>
+						</view>
+						<view class="margin_left2 font_size30" style="margin-top:-1% ;">
+							{{item.number}}
+						</view>
+
+					</view>
+				</view>
+
+				<view class="width10 margin_top3">
+					<image :src="'../../static/image/holdAll/vip' + item.vip + '.png'" class="list_vip" mode=""></image>
+				</view>
 			</view>
+
 
 
 		</view>
@@ -118,16 +151,19 @@
 		margin-top: -40upx;
 		border-top-right-radius: 50upx;
 	}
-	.tab_active{
+
+	.tab_active {
 		background-color: #F8F9FC !important;
 		color: #999999 !important;
 		border-bottom-right-radius: 50upx;
 	}
-	.tab_active1{
+
+	.tab_active1 {
 		background-color: #F8F9FC !important;
 		color: #999999 !important;
 		border-bottom-left-radius: 50upx;
 	}
+
 	.rank_moudel {
 		background-color: #FFFFFF;
 		width: 94%;
@@ -151,5 +187,18 @@
 		width: 24upx;
 		height: 24upx;
 		margin-right: 3%;
+	}
+	.my_vipbj {
+		width: 130upx;
+		height: 30upx;
+		background: url(../../static/image/icon/vipb.png) no-repeat;
+		font-size: 22upx;
+		background-size: 100%;
+		color: #FFE600;
+		text-align: right;
+		line-height: 30upx;
+		margin-top: 10upx;
+		margin-left: 10upx;
+		padding-right: 1%;
 	}
 </style>

@@ -3,11 +3,17 @@
 		<view class="my_moudel_bj">
 			<view class="page_width">
 				<view class="uni-flex margin_left1">
-					<view class="font_size40 font_colorff">
-						Hi~ 王大锤
+					<view class="uni-flex width70">
+						<view class="font_size40">
+							Hi~ 王大锤
+						</view>
+						<view class="my_vipbj">
+							普通会员
+						</view>
 					</view>
-					<view class="my_vipbj">
-						普通会员
+
+					<view class="text_right width25">
+						<image src="../../../static/image/holdAll/myQcode.png" style="width: 40upx;height: 40upx;" mode=""></image>
 					</view>
 				</view>
 
@@ -23,24 +29,11 @@
 							80,000.00
 						</view>
 					</view>
-					<view class="text_right width30">
-						<image src="../../../static/image/holdAll/myQcode.png" style="width: 146upx;height: 48upx;position: absolute;right: 0;"
-						 mode=""></image>
-					</view>
 				</view>
 
 
 				<view class="margin_left3 margin_top3">
 					<view class="uni-flex">
-						<view class="font_size40 width60" style="margin-top: 10upx;">
-							<text class="font_size26">余额</text> ：80,000.00
-						</view>
-						<view class="my_btn">
-							立即提现
-						</view>
-					</view>
-
-					<view class="uni-flex " style="margin-top: 20upx;">
 						<view class="width50 text_center" style="border-right: 1px solid #EEEEEE;">
 							<view class="font_size24">
 								佣金总额（元）
@@ -58,134 +51,105 @@
 							</view>
 						</view>
 					</view>
-
+					<view class="uni-flex margin_top2 font_colorff">
+						<view class="uni-flex width55 margin_left5">
+							<view class="font_size24" style="margin-top: 20upx;">
+								我的余额
+							</view>
+							<view class="font_size50 margin_left2">
+								80,000.00
+							</view>
+						</view>
+						<view class="my_btn">
+							立即提现
+						</view>
+					</view>
+					
+					<view class="uni-flex order_moudel">
+						<view class="text_center width33" @click="goToPage(item.falg)" style="margin-top: 30upx;" v-for="(item,index) in orderList" :key="index">
+							<view class="">
+								<image :src="item.url" mode="" :class="item.tabClass"></image>
+							</view>
+							<view class="font_size26 font_color33">
+								{{item.name}}
+							</view>
+						</view>
+					</view>
+					
 				</view>
 
 			</view>
 		</view>
-		<!-- 功能快 -->
+		
+		
+		<!-- 功能列表 -->
 		<view class="page_width">
-			<view class="moudel_my_list">
+			<view class="moudel_list_tab">
 				<view class="font_size28">
 					我的服务
 				</view>
-
-				<view class="item_tab_list " @click="goToWithdrawal">
-					<view class="">
-						<image src="../../../static/image/icon/my1.png" style="width: 52upx;height: 44upx;" mode=""></image>
+				<view class="uni-flex padding_top3 padding_bottom3 border_bottom" v-for="(item,index) in tabList" :key="index" @click="goToPage(item.urlFalg)">
+					<view class="width10">
+						<image :src="item.url" :class="item.img_class" style="margin-top: 1%;" mode=""></image>
 					</view>
-					<view class="font_size26">
-						申请提现
+					<view class="width70 margin_left2" style="margin-top: -1%;">
+						{{item.name}}
 					</view>
-				</view>
-				<view class="item_tab_list " @click="goToWithdrawalList">
-					<view class="">
-						<image src="../../../static/image/icon/my2.png" style="width: 49upx;height: 49upx;" mode=""></image>
-					</view>
-					<view class="font_size26">
-						提现记录
+					<view class="width20 text_right">
+						<image src="../../../static/image/icon/rightc.png" style="width: 16upx;height: 26upx;" mode=""></image>
 					</view>
 				</view>
-				<view class="item_tab_list " @click="getPhone">
-					<view class="">
-						<image src="../../../static/image/icon/my3.png" style="width: 32upx;height: 44upx;" mode=""></image>
+				
+				<view class="uni-flex padding_top3 padding_bottom3 border_bottom">
+					<view class="width10">
+						<image src="../../../static/image/icon/my7.png"  style="margin-top: 1%;width: 33upx;height: 31upx;" mode=""></image>
 					</view>
-					<view class="font_size26">
-						手机号
-					</view>
-				</view>
-				<view class="item_tab_list ">
-					<view class="">
-						<image src="../../../static/image/icon/my4.png" style="width: 38upx;height: 44upx;" mode=""></image>
-					</view>
-					<view class="font_size26">
-						我的推荐人
-					</view>
-				</view>
-				<view class="item_tab_list ">
-					<view class="">
-						<image src="../../../static/image/icon/my5.png" style="width: 50upx;height: 42upx;" mode=""></image>
-					</view>
-					<view class="font_size26">
-						绑定微信
-					</view>
-				</view>
-				<view class="item_tab_list ">
-					<view class="">
-						<image src="../../../static/image/icon/my6.png" style="width: 45upx;height: 45upx;" mode=""></image>
-					</view>
-					<view class="font_size26">
-						个人信息
-					</view>
-				</view>
-				<view class="item_tab_list ">
-					<view class="">
-						<image src="../../../static/image/icon/my7.png" style="width: 46upx;height: 43upx;" mode=""></image>
-					</view>
-					<view class="font_size26">
+					<view class="width30 margin_left2" style="margin-top: -1%;">
 						客服电话
 					</view>
-				</view>
-				<view class="item_tab_list ">
-					<view class="">
-						<image src="../../../static/image/icon/my8.png" style="width: 43upx;height: 42upx;" mode=""></image>
-					</view>
-					<view class="font_size26">
-						意见反馈
+					<view class="width60 text_right ">
+						0472-4854-3939
+						<image src="../../../static/image/icon/rightc.png" style="width: 16upx;height: 26upx;margin-left: 2%;" mode=""></image>
 					</view>
 				</view>
-
 			</view>
+			
 		</view>
+		
+		
+		
 
 		<!-- 手机号 -->
 		<template v-if="noPhone">
 			<view class="moudel_content_my">
 				<view class="phone_moudel_my">
 					<view class="uni-flex">
-						<view class="width35 text_left">
+						<view class="width35 text_left" @click="colsePhone">
 							<image src="../../../static/image/icon/colse.png" style="width: 26upx;height: 26upx;" mode=""></image>
 						</view>
 						<view class="font_size34" style="margin-top: -2%;">
 							{{title}}
 						</view>
 					</view>
-				<template v-if="false">
-					<view class="font_size30 border_bottom margin_top5 padding_top3 padding_bottom3">
-						<input type="text" class="margin_left2" value="" placeholder="请输入您的手机号" />
-					</view>
-					<view class="uni-flex border_bottom padding_top3 padding_bottom3">
-						<view class="width60">
-							<input type="text" class="margin_left2" value="" placeholder="请输入验证码" />
+					<template v-if="false">
+						<view class="font_size30 border_bottom margin_top5 padding_top3 padding_bottom3">
+							<input type="text" class="margin_left2" value="" placeholder="请输入您的手机号" />
 						</view>
-						<view class="font_size30 width40 text_center" style="border-left: 1px solid #EEEEEE;">
-							获取验证码
+						<view class="uni-flex border_bottom padding_top3 padding_bottom3">
+							<view class="width60">
+								<input type="text" class="margin_left2" value="" placeholder="请输入验证码" />
+							</view>
+							<view class="font_size30 width40 text_center" style="border-left: 1px solid #EEEEEE;">
+								获取验证码
+							</view>
 						</view>
-					</view>
-					<view class="phone_btn">
-						确定
-					</view>
-				</template>
-				
-				<template>
-					<view class="text_center font_size44 margin_top5">
-						18401320024
-					</view>
-					<view class="font_size26 font_color99 text_center">
-						您已成功绑定手机号码
-					</view>
-					<view class="phone_btn" style="width: 240upx;margin-left: 130upx;">
-						换绑手机号
-					</view>
-				</template>
-					
-					
-					
+						<view class="phone_btn">
+							确定
+						</view>
+					</template>
 				</view>
 			</view>
 		</template>
-
-
 
 	</view>
 </template>
@@ -197,11 +161,74 @@
 	export default {
 		data() {
 			return {
-				noPhone: true,
-				title:'绑定手机号',
+				noPhone: false,
+				title: '绑定手机号',
+				
+				orderList: [{
+						name: '订单查询',
+						url: '../../../static/image/icon/order1.png',
+						tabClass: 'order1_img',
+						falg:'order'
+					},
+					{
+						name: '新闻资讯',
+						url: '../../../static/image/icon/order3.png',
+						tabClass: 'order2_img',
+						falg:'journalism'
+					},
+					{
+						name: '消息中心',
+						url: '../../../static/image/icon/order2.png',
+						tabClass: 'order3_img',
+						falg:'msg'
+					}
+				],
+				
+				tabList:[
+					{
+						name:'申请提现',
+						url:'../../../static/image/icon/my1.png',
+						urlFalg:'Withdrawal',
+						img_class:'tabList_img1'
+					},
+					{
+						name:'提现记录',
+						url:'../../../static/image/icon/my2.png',
+						urlFalg:'withdrawalList',
+						img_class:'tabList_img2'
+					},
+					{
+						name:'个人信息',
+						url:'../../../static/image/icon/my6.png',
+						img_class:'tabList_img2',
+						urlFalg:'information'
+					},
+					{
+						name:'我的推荐人',
+						url:'../../../static/image/icon/my4.png',
+						urlFalg:'recommended',
+						img_class:'tabList_img3'
+					},
+					{
+						name:'意见反馈',
+						url:'../../../static/image/icon/my8.png',
+						urlFalg:'feedback',
+						img_class:'tabList_img4'
+					}
+				]
 			}
 		},
 		methods: {
+			// 新闻等
+			goToPage(falg){
+				console.log(falg)
+				let urlFalg = falg
+				uni.navigateTo({
+					url:'../../' + urlFalg + '/' + urlFalg
+				})
+			},
+			
+			
 			// 去申请提现页面
 			goToWithdrawal() {
 				uni.navigateTo({
@@ -222,6 +249,12 @@
 			colsePhone() {
 				this.noPhone = false;
 				uni.showTabBar(); //显示tab
+			},
+			// 去我的推荐人
+			goToRecommended() {
+				uni.navigateTo({
+					url: '../../recommended/recommended'
+				})
 			}
 		}
 	}
@@ -231,17 +264,17 @@
 <style lang="scss">
 	.my_moudel_bj {
 		width: 100%;
-		height: 510upx;
-		background: url(../../../static/image/holdAll/myTop.png) no-repeat;
+		height: 622upx;
+		background: url(../../../static/image/holdAll/myTop1.png) no-repeat;
 		background-size: 100%;
-		color: #FFFFFF;
-		padding-top: 41upx;
+		color: #333333;
+		padding-top: 10upx;
 	}
 
 	.my_vipbj {
 		width: 130upx;
 		height: 30upx;
-		background: url(../../../static/image/icon/myvip.png) no-repeat;
+		background: url(../../../static/image/icon/vipb.png) no-repeat;
 		font-size: 22upx;
 		background-size: 100%;
 		color: #FFE600;
@@ -271,20 +304,7 @@
 		margin-top: 20upx;
 	}
 
-	.moudel_my_list {
-		background-color: #FFFFFF;
-		height: 304upx;
-		border-radius: 20upx;
-		box-shadow: 0upx 2upx 14upx 0upx #dde2ef;
-		padding: 30upx;
-	}
-
-	.item_tab_list {
-		width: 25%;
-		text-align: center;
-		display: inline-block;
-		margin-top: 20upx;
-	}
+	
 
 	.moudel_content_my {
 		height: 100%;
@@ -306,8 +326,8 @@
 		height: 362upx;
 		padding: 40upx;
 	}
-	
-	.phone_btn{
+
+	.phone_btn {
 		width: 220upx;
 		height: 78upx;
 		line-height: 78upx;
@@ -317,5 +337,50 @@
 		border-radius: 50upx;
 		margin-top: 30upx;
 		margin-left: 160upx;
+	}
+	
+	
+	
+
+	
+	.order1_img {
+		height: 52upx;
+		width: 44upx;
+	}
+	
+	.order2_img {
+		height: 52upx;
+		width: 54upx;
+	}
+	
+	.order3_img {
+		height: 54upx;
+		width: 54upx;
+	}
+	
+	
+	.moudel_list_tab{
+		background: #ffffff;
+		border-radius: 30upx;
+		box-shadow: 0pt 2upx 14upx 0upx #dde2ef; 
+		padding: 30upx;
+	}
+	
+	
+	.tabList_img1{
+		width:34upx ;
+		height: 29upx;
+	}
+	.tabList_img2{
+		width:34upx ;
+		height: 34upx;
+	}
+	.tabList_img3{
+		width:33upx ;
+		height: 38upx;
+	}
+	.tabList_img4{
+		width:33upx ;
+		height: 32upx;
 	}
 </style>

@@ -24,6 +24,7 @@
 				"app-plus": {
 					"titleNView": false,
 					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"我的团队"
 				},
 				"enablePullDownRefresh": false
 			}
@@ -33,13 +34,19 @@
 				"app-plus": {
 					"titleNView": false,
 					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"我的"
 				},
 				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"uniapp"
+				},
+				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/journalism/journalism",
@@ -47,6 +54,7 @@
 				"app-plus": {
 					"titleNView": false,
 					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"新闻资讯"
 				},
 				"enablePullDownRefresh": false
 			}
@@ -56,6 +64,7 @@
 				"app-plus": {
 					"titleNView": false,
 					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"消息中心"
 				},
 				"enablePullDownRefresh": false
 			}
@@ -65,6 +74,7 @@
 				"app-plus": {
 					"titleNView": false,
 					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"会员中心"
 				},
 				"enablePullDownRefresh": false
 			}
@@ -95,6 +105,7 @@
             	"app-plus": {
             		"titleNView": false,
             		"backgroundTextStyle": "dark"
+            		// "navigationBarTitleText":"申请提现"
             	},
             	"enablePullDownRefresh": false
             }
@@ -105,9 +116,95 @@
             	"app-plus": {
             		"titleNView": false,
             		"backgroundTextStyle": "dark"
+            		// "navigationBarTitleText":"提现记录"
             	},
             	"enablePullDownRefresh": false
             }
+        }
+        ,{
+            "path" : "pages/recommended/recommended",
+           "style": {
+           	"app-plus": {
+           		"titleNView": false,
+           		"backgroundTextStyle": "dark"
+           		// "navigationBarTitleText":"推荐人信息"
+           	},
+           	"enablePullDownRefresh": false
+           }
+        }
+        ,{
+            "path" : "pages/bindingIdentity/bindingIdentity",
+           "style": {
+           	"app-plus": {
+           		"titleNView": false,
+           		"backgroundTextStyle": "dark"
+           		// "navigationBarTitleText":"绑定身份信息"
+           	},
+           	"enablePullDownRefresh": false
+           }
+        },{
+			"path":"pages/commissionRecord/commissionRecord",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"佣金记录"
+				},
+				"enablePullDownRefresh": false
+			}
+		},{
+			"path":"pages/tcRecord/tcRecord",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"提成记录"
+				},
+				"enablePullDownRefresh": false
+			}
+		},{
+			"path":"pages/msgDetail/msgDetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"消息详情"
+				},
+				"enablePullDownRefresh": false
+			}
+		}
+        ,{
+            "path" : "pages/information/information",
+            "style": {
+            	"app-plus": {
+            		"titleNView": false,
+            		"backgroundTextStyle": "dark"
+            		// "navigationBarTitleText":"个人信息"
+            	},
+            	"enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/wechatBinding/wechatBinding",
+            "style": {
+            	"app-plus": {
+            		"titleNView": false,
+            		"backgroundTextStyle": "dark"
+            		// "navigationBarTitleText":"绑定微信"
+            	},
+            	"enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/feedback/feedback",
+           "style": {
+           	"app-plus": {
+           		"titleNView": false,
+           		"backgroundTextStyle": "dark"
+           		// "navigationBarTitleText":"意见反馈"
+           	},
+           	"enablePullDownRefresh": false
+           }
         }
     ],
 	"globalStyle": {

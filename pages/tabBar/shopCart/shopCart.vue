@@ -1,47 +1,55 @@
 <template>
-	<view class="background_colorff">
-
-		<!-- 搜索框 -->
-		<view class="uni-flex background_colorff padding_top3">
-			<view class="margin_left3">
-				团队(99)
-			</view>
-			<view class="uni-flex searce_moudel">
-				<view class="searce_left">
-					<image src="../../../static/image/icon/searce.png" class="searce_width" mode=""></image>
-				</view>
-				<view class="searce_right">
-					<input class="findShop" maxlength="10" placeholder="输入需要查找的名称或手机号" confirm-type='搜索' type="text" @confirm='Search'
-					 placeholder-style='color:#cccccc' />
-				</view>
-			</view>
-		</view>
-
-		<!-- tab -->
+	<view class="">
 
 		<view class="background_colorff">
-			<view class="item_tab" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index)" :style="tabIndex == index ?'color:#374CE5' :'' ">
-				{{item.name}}
+
+
+			<!-- 搜索框 -->
+			<view class="uni-flex background_colorff padding_top3">
+				<view class="margin_left3">
+					团队(99)
+				</view>
+				<view class="uni-flex searce_moudel">
+					<view class="searce_left">
+						<image src="../../../static/image/icon/searce.png" class="searce_width" mode=""></image>
+					</view>
+					<view class="searce_right">
+						<input class="width90" maxlength="10" placeholder="输入需要查找的名称或手机号" confirm-type='搜索' type="text" @confirm='Search'
+						 placeholder-style='color:#cccccc' />
+					</view>
+				</view>
+			</view>
+
+			<!-- tab -->
+			<view class="background_colorff border_bottom">
+				<view class="item_tab" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index)" :style="tabIndex == index ?'color:#374CE5' :'' ">
+					{{item.name}}
+				</view>
+			</view>
+
+			<view class="font_size28 margin_left3 padding_top3 padding_bottom2">
+				团队人数：2人
 			</view>
 		</view>
-
 		<!-- list -->
 		<view class="page_width">
 			<view class="list_moudel">
 				<view class="text_right font_size22 font_colorcc margin_right3 padding_top2">
 					2020-06-12 10:30:28
 				</view>
-				<view class="uni-flex margin_left3">
-					<view class="width20">
+				<view class="uni-flex margin_left3 margin_top3">
+					<view class="width20 margin_top3">
 						<image src="../../../static/image/ces.png" class="img_heard" mode=""></image>
 					</view>
-					<view class="width70">
+					<view class="width60">
 						<view class="uni-flex">
 							<view class="font_size30">
 								打投
 							</view>
 							<view class="">
-								<image src="../../../static/image/ces.png" mode="" class="list_img1"></image>
+								<view class="my_vipbj">
+									普通会员
+								</view>
 							</view>
 						</view>
 						<view class="uni-flex">
@@ -49,13 +57,27 @@
 								微信号：gudh448890
 							</view>
 							<view class="font_size22 margin_left3" style="color: #374CE5;">
-								<image src="../../../static/image/icon/copey.png" mode="" class="list_img2"></image>
+								<image src="../../../static/image/icon/copy.png" mode="" class="list_img2"></image>
 								复制
 							</view>
 						</view>
+						<view class="uni-flex" @click="getPhone">
+							<view class="font_size24">
+								手机号：15578980909
+							</view>
+							<view class="font_size22 margin_left3" style="color: #374CE5;">
+								<image src="../../../static/image/icon/dianhua.png" mode="" class="list_img2"></image>
+								立即拨打
+							</view>
+						</view>
 					</view>
+		
+					<view class="width20 text_center"  @click="getMyQcode">
+						<image src="../../../static/image/icon/erCode.png" style="width: 34upx;height: 34upx;" mode=""></image>
+					</view>
+				
 				</view>
-				<view class="uni-flex">
+				<!-- <view class="uni-flex">
 					<view class="list_btn1" @click="getMyQcode">
 						<image src="../../../static/image/icon/qcode.png" style="width: 25upx;height: 25upx;" mode=""></image>
 						<text class="margin_left2">二维码</text>
@@ -65,7 +87,7 @@
 						<image src="../../../static/image/icon/phone.png" style="width: 30upx;height: 26upx;" mode=""></image>
 						<text class="margin_left2">电话</text>
 					</view>
-				</view>
+				</view> -->
 			</view>
 
 		</view>
@@ -150,13 +172,13 @@
 				this.myQF = false;
 				uni.showTabBar(); //显示tab
 			},
-			
+
 			// 没有电话提示
-			getPhone(){
+			getPhone() {
 				this.noPhone = true;
 				uni.hideTabBar(); //隐藏tab
 			},
-			closePhone(){
+			closePhone() {
 				this.noPhone = false;
 				uni.showTabBar(); //显示tab
 			}
@@ -165,8 +187,6 @@
 </script>
 
 <style lang="scss">
-	
-
 	// 搜索框
 	.searce_moudel {
 		width: 75%;
@@ -190,6 +210,7 @@
 	.searce_right {
 		margin-top: 1%;
 		margin-left: 2%;
+		width: 90%;
 	}
 
 	.searce_width {
@@ -293,7 +314,7 @@
 		font-size: 30upx;
 		margin-top: 20upx;
 	}
-	
+
 	.phone_moudel {
 		background-color: #FFFFFF;
 		border-radius: 30upx;
@@ -304,8 +325,8 @@
 		text-align: center;
 		height: 350upx;
 	}
-	
-	.phone_btn{
+
+	.phone_btn {
 		width: 220upx;
 		height: 78upx;
 		line-height: 78upx;
@@ -313,5 +334,20 @@
 		background-color: #374CE5;
 		color: #FFFFFF;
 		border-radius: 50upx;
+	}
+	
+	
+	.my_vipbj {
+		width: 130upx;
+		height: 30upx;
+		background: url(../../../static/image/icon/vipb.png) no-repeat;
+		font-size: 22upx;
+		background-size: 100%;
+		color: #FFE600;
+		text-align: right;
+		line-height: 30upx;
+		margin-top: 10upx;
+		margin-left: 10upx;
+		padding-right: 1%;
 	}
 </style>
