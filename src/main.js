@@ -6,6 +6,13 @@ import router from './router'
 import service from "./bin/fetch";
 import remconfig from './config/rem.config'
 import 'lib-flexible'
+import dataV from '@jiaminghi/data-view'
+
+Vue.use(dataV)
+
+// 适配flex
+import "@/common/flexible.js";
+
 remconfig()
 Vue.config.productionTip = false
 Vue.prototype.$fetch = service;
