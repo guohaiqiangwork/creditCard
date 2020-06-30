@@ -1,19 +1,43 @@
 <template>
 	<view>
 		<!-- 背景图 -->
-		<view class="moudel_bj_top ">
-			<view class="uni-flex top_moudel">
-				<view class="font_size44 width30 text_center">
-					<text class="font_size22">¥</text> 198
+		<view :class="'moudel_bj_top' + vipF ">
+
+			<view class="uni-flex moudel_margin">
+				<view class="wi">
+					<image src="../../static/image/ces.png" class="top_img" mode=""></image>
 				</view>
-				<view class="font_size22 width70 font_color99">
-					付款前请仔细阅读下方《专员升级协议》
+				<view class="font_size40 margin_top3 margin_left3">
+					Flouexetine
 				</view>
 			</view>
-				
+
+			<view class="uni-flex margin_top8">
+				<view @click="funVip(index)"  :class="index +1 == vipF ? 'moudel_hui' :'moudel_huin' " v-for="(item,index) in vipList" :key="index">
+					<view class="">
+						¥<text class="font_size60">{{item.price}}</text>
+					</view>
+					<view class="font_size22">
+						{{item.name}}
+					</view>
+				</view>
+
+			</view>
 			
+			
+			<view class="font_colorf0 uni-flex margin_top3" style="width: 94%;margin-left: 3%;">
+				<view  @click="tabFalg" style="margin-right: 2%;margin-top: .3%;">
+					<image src="../../static/image/icon/check.png" v-if="usefalg" class="img_1"></image>
+					<image src="../../static/image/icon/check1.png" v-if="!usefalg" class="img_1"></image>
+				</view>
+				<view class="">
+					我已认真阅读并完全同意；<text class="font_colorff" @click="goAgreement">《服务协议》</text>和 <text class="font_colorff">
+					《专员升级权益》</text>的所有条款
+				</view>
+			</view>
+
 		</view>
-		
+
 		<!-- 某块 -->
 		<view class="page_width padding_bottom3">
 			<view class="center_moudel">
@@ -22,10 +46,19 @@
 				</view>
 				<view class="font_size26">
 					1.用户自愿缴纳费用，升级为专员，升级成功即可享收
-					平台内的专员补贴等政治服务。
+					平台内的专员补贴等增值服务。
 					2.会员也可通过发展3个新专员成为专员。
 					以上满足任意一条即可成为专员。
-					二.有效期：
+					二.有效期：永久有效
+					三.增值服务：
+					付费会员可获得增值服务奖励。
+					四.付费说明：
+					1.信用卡申请无需缴纳198元同样可以办理
+					这两项业务；
+					2.用户（普通会员）不升级为专员将享收不到专员补贴
+					等增值服务；
+					3.会员升级费用与信用卡申请额度无关；
+					4.会员升级费用不可退还；
 				</view>
 				<!-- <view class="uni-flex">
 					<view class="">
@@ -36,10 +69,10 @@
 						升级协议》的所有条款
 					</view>
 				</view> -->
-				
+
 			</view>
-			
-			<view class="bottom_btn">
+
+			<view class="bottom_btn" @click="goPayList">
 				确认支付
 			</view>
 		</view>
@@ -50,28 +83,73 @@
 	export default {
 		data() {
 			return {
-
+				vipF:1,
+				usefalg:true,
+				vipList:[
+					{
+						name:'初级会员',
+						price:'99'
+					},
+					{
+						name:'中级会员',
+						price:'199'
+					},
+					{
+						name:'高级会员',
+						price:'399'
+					}
+				]
 			}
 		},
 		methods: {
-
+			funVip:function(index){
+				this.vipF = index +1
+			},
+			// 协议
+			tabFalg:function(){
+				this.usefalg = !this.usefalg
+			},
+			// 去服务协议
+			goAgreement:function(){
+				uni.navigateTo({
+					url:'../serviceAgreement/serviceAgreement'
+				})
+			},
+			// 去支付yem
+			goPayList:function(){
+				uni.navigateTo({
+					url:'../payList/payList'
+				})
+			}
+			
 		}
 	}
 </script>
 
 <style lang="less">
-	.moudel_bj_top {
+	.moudel_bj_top1 {
 		width: 100%;
-		height: 330upx;
-		background: url(../../static/image/holdAll/huiyuan.png) no-repeat;
+		height: 664upx;
+		background: url(../../static/image/holdAll/membership1.png) no-repeat;
 		background-size: 100%;
-		
 	}
-	
+	.moudel_bj_top2 {
+		width: 100%;
+		height: 664upx;
+		background: url(../../static/image/holdAll/membership2.png) no-repeat;
+		background-size: 100%;
+	}
+	.moudel_bj_top3 {
+		width: 100%;
+		height: 664upx;
+		background: url(../../static/image/holdAll/membership3.png) no-repeat;
+		background-size: 100%;
+	}
+
 	.top_moudel {
 		color: #374CE5;
 		height: 104upx;
-		align-items:center;
+		align-items: center;
 		box-shadow: 0upx 4upx 14upx 0upx;
 		border-radius: 20upx;
 		margin-top: -5%;
@@ -81,16 +159,17 @@
 		margin-left: 3%;
 		margin-top: 290upx;
 	}
-	
-	.center_moudel{
+
+	.center_moudel {
 		box-shadow: 0upx 4upx 14upx 0upx #dde2ef;
 		border-radius: 20upx;
 		background-color: #FFFFFF;
-		height: 830upx;
-		margin-top: 100upx;
+		// height: 830upx;
+		margin-top: 20upx;
 		padding: 30upx;
 	}
-	.bottom_btn{
+
+	.bottom_btn {
 		width: 100%;
 		height: 88upx;
 		background: #374ce5;
@@ -99,5 +178,49 @@
 		line-height: 88upx;
 		color: #FFFFFF;
 		margin-top: 30upx;
+	}
+
+	.top_img {
+		width: 120upx;
+		height: 120upx;
+		border-radius: 50%;
+	}
+
+	.moudel_margin {
+		margin-left: 15%;
+		padding-top: 15%;
+	}
+
+	.moudel_hui {
+		width: 210upx;
+		height: 160upx;
+		border: 1pt solid #f0c880;
+		border-radius: 30upx;
+		align-items: center;
+		padding-top: 20upx;
+		padding-bottom: 30upx;
+		font-size: 26upx;
+		text-align: center;
+		color: #F0C880;
+		margin-left: 30upx;
+	}
+	.moudel_huin{
+		width: 210upx;
+		height: 160upx;
+		border: 1pt dashed #f0c880;
+		border-radius: 30upx;
+		align-items: center;
+		padding-top: 20upx;
+		padding-bottom: 30upx;
+		font-size: 26upx;
+		text-align: center;
+		color: #F0C880;
+		margin-left: 30upx;
+		opacity: 0.61;
+	}
+	
+	.img_1{
+		width: 30upx;
+		height: 30upx;
 	}
 </style>

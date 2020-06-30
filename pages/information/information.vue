@@ -2,13 +2,13 @@
 	<view>
 		<view class="infor_moudel">
 			<view class="">
-				<image src="../../static/image/ces.png" style="width: 120upx;height: 120upx;border-radius: 50%;" mode=""></image>
+				<image :src="infoData.headImgurl" style="width: 120upx;height: 120upx;border-radius: 50%;" mode=""></image>
 			</view>
 			<view class="font_size32">
-				Flouexetine
+				{{infoData.nickName}}
 			</view>
 			<view class="font_size40">
-				王大锤
+				{{infoData.name}}
 			</view>
 		</view>
 
@@ -20,9 +20,9 @@
 					</view>
 					<view class="uni-flex  width80" style="align-items: center;">
 						<view class="width75 text_right">
-							184****0024
+							{{infoData.mobile}}
 						</view>
-						<view class="font_size30 width25 text_right" style="color: #374CE5;"  @click="goPhone">
+						<view class="font_size30 width25 text_right" style="color: #374CE5;" @click="goPhone">
 							去修改
 							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
 						</view>
@@ -36,14 +36,14 @@
 					</view>
 					<view class="uni-flex  width80" style="align-items: center;">
 						<view class="width75 text_right">
-							185666JKI002342342
+							{{infoData.wxNumber}}
 						</view>
 						<view class="font_size30 width25 text_right" style="color: #374CE5;" v-if="true" @click="goToBinding">
 							去修改
 							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
 						</view>
-						
-						<view class="font_size30 width25 text_right" style="color: #374CE5;" v-else  >
+
+						<view class="font_size30 width25 text_right" style="color: #374CE5;" v-else>
 							去绑定
 							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
 						</view>
@@ -55,7 +55,7 @@
 						身份证
 					</view>
 					<view class="width80 font_color66 font_size30 text_right" style="align-items: center;">
-						150204********0059
+						{{infoData.idCard}}
 					</view>
 				</view>
 
@@ -76,7 +76,7 @@
 					</view>
 					<template>
 						<view class="font_size30 border_bottom margin_top5 padding_top3 padding_bottom3">
-							<input type="text" class="margin_left2" value="" placeholder="请输入您的手机号" />
+							<input type="text" class="margin_left2" maxlength="11" value="" @input="keyPhone" placeholder="请输入您的手机号" />
 						</view>
 						<view class="uni-flex border_bottom padding_top3 padding_bottom3">
 							<view class="width60 margin_left2">
@@ -86,7 +86,7 @@
 								{{countdown}}<text v-show="timestatus" class="forgetpwd2">秒重获</text>
 							</view>
 						</view>
-						<view class="phone_btn">
+						<view class="phone_btn" @click="funChangeMobile">
 							确定
 						</view>
 					</template>
@@ -105,9 +105,29 @@
 				title: '绑定手机号',
 				countdown: '获取验证码',
 				timestatus: false,
+				infoData: ''
 			}
 		},
+		mounted() {
+			this.funGetInfo()
+		},
 		methods: {
+
+			// 获取个人信息
+			funGetInfo: function() {
+				var data = {
+					memberId: uni.getStorageSync('memberId')
+				}
+				this.$http.get('/mb/info', data).then(res => {
+					console.log(JSON.stringify(res))
+					if (res.data.code == 200) {
+						this.infoData = res.data.data;
+						this.infoData.idCard = this.infoData.idCard.substr(0, 6) + '******' + this.infoData.idCard.substr(14, 18)
+						this.infoData.mobile = this.infoData.mobile.substr(0, 3) + '****' + this.infoData.mobile.substr(7, 10)
+					}
+				})
+			},
+
 			// 手机号
 			keyPhone: function(event) {
 				this.userPhone = event.target.value
@@ -117,17 +137,17 @@
 				this.phoneCode = e.target.value
 			},
 			// 打开手机号
-			goPhone(e){
+			goPhone(e) {
 				this.noPhone = true;
 				this.title = '修改手机号'
 			},
-			colsePhone(){
+			colsePhone() {
 				this.noPhone = false;
 			},
 			// 微信绑定
-			goToBinding (){
+			goToBinding() {
 				uni.navigateTo({
-					url:'../wechatBinding/wechatBinding'
+					url: '../wechatBinding/wechatBinding'
 				})
 			},
 			// 获取验证码
@@ -152,9 +172,9 @@
 				}
 				that.disabled = true; //禁用点击
 				var phoneData = {
-					phone: that.userPhone
+					mobile: that.userPhone
 				}
-				that.$http.post('/wx/send/messages', phoneData).then(res => {
+				that.$http.post('/send/code', phoneData).then(res => {
 					if (res.data.code == 200) {
 						that.countdown = 60;
 						that.timestatus = true;
@@ -168,7 +188,7 @@
 							duration: 1500,
 							position: 'top',
 						});
-			
+
 					}
 				}).catch(err => {
 					that.disabled = false; //获取失败开启点击
@@ -186,6 +206,29 @@
 					--that.countdown;
 				}
 			},
+			
+			
+			
+			// 跟换手机号
+			funChangeMobile:function(){
+				var data={
+					mobile: this.userPhone,
+					memberId:uni.getStorageSync('memberId'),
+					code:this.phoneCode
+				}
+				this.$http.post('/mb/changeMobile', data,true).then(res => {
+					console.log(JSON.stringify(data))
+					if(res.data.code == 200){
+						uni.showToast({
+							title: '更换成功',
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
+					}
+				});
+			
+			}
 			
 		}
 	}

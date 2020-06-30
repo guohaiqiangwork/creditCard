@@ -10,8 +10,6 @@
 						<input type="number" maxlength="11" @input="keyPhone" placeholder="请输入您的联系电话" placeholder-style='color:#cccccc' />
 					</view>
 				</view>
-
-
 				<view class="uni-flex border_bottom padding_bottom3 padding_top3">
 					<view class="width10">
 						<image src="../../static/image/icon/yzm.png" class="one_img" style="height: 32upx;" mode=""></image>
@@ -50,6 +48,10 @@
 			<view class="font_size28 font_color99 margin_top3">
 				申请信用卡时的登记信息请使用同一个手机号码（当前绑定的号码）进行申请，否则将造成信息不匹配，由此造成的影响将由用户负责。
 			</view>
+			
+			<view class="btn_bd" @click="funBindMobileAndIdCard">
+				确认绑定
+			</view>
 
 		</view>
 	</view>
@@ -76,7 +78,7 @@
 			// 获取证件号码
 			keyCard: function(e) {
 				console.log(e)
-				this.userCardtarget.value
+				this.userCardtarget = e.target.value
 			},
 			// 获取姓名
 			keyName: function(e) {
@@ -104,9 +106,9 @@
 				}
 				that.disabled = true; //禁用点击
 				var phoneData = {
-					phone: that.userPhone
+					mobile: that.userPhone
 				}
-				this.$http.post('/wx/send/messages', phoneData).then(res => {
+				this.$http.post('/send/code', phoneData).then(res => {
 					if (res.data.code == 200) {
 						that.countdown = 60;
 						that.timestatus = true;
@@ -138,7 +140,70 @@
 					--that.countdown;
 				}
 			},
-
+			
+			
+			funBindMobileAndIdCard :function(){
+				if(!this.phoneCode){
+					uni.showToast({
+						title: '请填写验证码',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return
+				}else if(!this.userCardtarget){
+					uni.showToast({
+						title: '请填写证件号码',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return
+				}else if(!this.userPhone){
+					uni.showToast({
+						title: '请填写手机号',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return
+				}else if(!this.userNam){
+					uni.showToast({
+						title: '请填写姓名',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return
+				}
+				var data = {
+					memberId: uni.getStorageSync('memberId'),
+					code:this.phoneCode,
+					idCard:this.userCardtarget,
+					mobile:this.userPhone,
+					name:this.userNam
+				}
+				this.$http.post('/mb/bindMobileAndIdCard',data,true).then(res => {
+					if(res.data.code == 200){
+						uni.showToast({
+							title: '绑定成功',
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
+						uni.switchTab({
+							url: '/pages/tabBar/home/home'
+						});
+					}else{
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
+					}
+				});
+			}
 
 		}
 	}
@@ -167,5 +232,18 @@
 	.three_img {
 		width: 30upx;
 		height: 30upx;
+	}
+	.btn_bd{
+		height: 90upx;
+		background: #374ce5;
+		border-radius: 45upx;
+		text-align: center;
+		align-items: center;
+		color: #FFFFFF;
+		font-size: 30upx;
+		line-height: 90upx;
+		position: absolute;
+		bottom: 5%;
+		width: 94%;
 	}
 </style>

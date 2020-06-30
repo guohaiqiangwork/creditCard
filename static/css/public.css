@@ -37,7 +37,9 @@
 	-webkit-justify-content: space-between;
 	justify-content: space-between;
 }
-
+.width10 {
+	width: 10%;
+}
 .width15 {
 	width: 15%;
 }
@@ -85,9 +87,11 @@
 .width55 {
 	width: 55%;
 }
+
 .width60 {
 	width: 60%;
 }
+
 .width65 {
 	width: 65%;
 }
@@ -132,6 +136,10 @@
 	margin-top: 3%;
 }
 
+.margin_top3u {
+	margin-top: 30upx;
+}
+
 .margin_top5 {
 	margin-top: 5%;
 }
@@ -159,9 +167,11 @@
 .margin_left5 {
 	margin-left: 5%
 }
+
 .margin_left8 {
 	margin-left: 8%
 }
+
 .margin_left100 {
 	margin-left: 100upx
 }
@@ -186,9 +196,10 @@
 	padding-bottom: 2%;
 }
 
-.padding_top2{
+.padding_top2 {
 	padding-top: 2%;
 }
+
 .padding_bottom3 {
 	padding-bottom: 3%;
 }
@@ -252,9 +263,11 @@
 .font_size22 {
 	font-size: 22upx;
 }
+
 .font_size20 {
 	font-size: 20upx;
 }
+
 .font_colorf3 {
 	color: #F34B4B;
 }
@@ -266,10 +279,13 @@
 .font_color33 {
 	color: #333333;
 }
-.font_colorfc{
+
+.font_colorfc {
 	color: #FCD07D;
 }
-
+.font_colorf0{
+	color: #F0C880;
+}
 .font_colorde {
 	color: #DEB14E;
 }
@@ -292,6 +308,10 @@
 
 .font_colorc1 {
 	color: #C19B87;
+}
+
+.font_color37 {
+	color: #374CE5;
 }
 
 .font_weight600 {
@@ -343,6 +363,7 @@
 	/* 隐藏滚动条，但依旧具备可以滚动的功能 */
 	display: none
 }
+
 /* image { pointer-events: none; } */
 .image_width_height100 {
 	width: 100%;
@@ -394,19 +415,25 @@
 	background: rgba(0, 0, 0, 0.4);
 }
 
-.header_title_img{
+.header_title_img {
 	width: 16upx;
 	height: 28upx;
 }
-.header_title_imgr{
+
+.header_title_imgr {
 	width: 36upx;
 	height: 36upx;
 }
-.page_width{
+
+.page_width {
 	width: 94%;
 	margin-left: 3%;
 }
 
 page {
-		background-color: #f8f9fc;
-	}
+	background-color: #f8f9fc;
+}
+
+.border_right {
+	border-right: 1px solid #EEEEEE;
+}

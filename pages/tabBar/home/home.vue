@@ -2,9 +2,22 @@
 	<view>
 		<!-- 内容块 -->
 		<view class="">
-			<image src="../../../static/image/ces.png" mode="" class="top_img"  @click="goToPage('bindingIdentity')"></image>
+			<!-- 绑定 跳转-->
+			<!-- <image src="../../../static/image/ces.png" mode="" class="top_img"  @click="goToPage('bindingIdentity')"></image> -->
+			<view class="">
+				<swiper class="imageContainer" @change="handleChange" circular autoplay>
+					<block v-for="(item,index) in imgList" :key="index">
+						<swiper-item @click="swiperClick(item.id)">
+							<image class="itemImg" :src="item.banner" lazy-load mode="scaleToFill"></image>
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+
+			<!-- 操作栏 -->
 			<view class="uni-flex order_moudel">
-				<view class="text_center width33" @click="goToPage(item.falg)" style="margin-top: 30upx;" v-for="(item,index) in orderList" :key="index">
+				<view class="text_center width33" @click="goToPage(item.falg)" style="margin-top: 30upx;" v-for="(item,index) in orderList"
+				 :key="index">
 					<view class="">
 						<image :src="item.url" mode="" :class="item.tabClass"></image>
 					</view>
@@ -17,7 +30,7 @@
 			<!-- 内容 -->
 			<view class="moudel_width">
 				<!--办卡 -->
-				<view class="uni-flex" style="margin-top: 150upx;">
+				<view class="uni-flex">
 					<view class="">
 						<image src="../../../static/image/holdAll/home1.png" mode="" class="card_img1"></image>
 					</view>
@@ -26,8 +39,66 @@
 					</view>
 				</view>
 
+				<!-- 会员升级 -->
+				<view class="memberMoudel">
+					<!-- 公告栏 -->
+					<view class="uni-flex gong_g_m">
+						<view class="img_cnter">
+							<image src="../../../static/image/icon/notice.png" style="width: 42upx;height: 33upx;" mode=""></image>
+						</view>
+						<!-- 公告内容 -->
+						<view class="uni-swiper-msg margin_left2">
+							<swiper class="swiper" vertical="true" autoplay="false" duration="500" interval="4000">
+								<swiper-item v-for="(item, index) in msg" :key="index" class="swiper_item_font">
+									<view>{{item.content}}</view>
+								</swiper-item>
+							</swiper>
+						</view>
+					</view>
+					<!-- 公告栏end -->
+
+					<view class="uni-flex text_center margin_top3 ">
+						<view class="width33 border_right">
+							<view class="font_size26 font_color33">
+								初级会员
+							</view>
+							<view class="margin_top3u">
+								<image src="../../../static/image/icon/homev1.png" class="vip_img" mode=""></image>
+							</view>
+							<view class="font_size26 font_color37">
+								<text class="font_size50">{{LevelNum.two}}</text>
+								人
+							</view>
+						</view>
+						<view class="width33 border_right">
+							<view class="font_size26 font_color33">
+								中级会员
+							</view>
+							<view class="margin_top3u">
+								<image src="../../../static/image/icon/homev2.png" class="vip_img" mode=""></image>
+							</view>
+							<view class="font_size26 font_color37">
+								<text class="font_size50">{{LevelNum.three}}</text>
+								人
+							</view>
+						</view>
+						<view class="width33 border_right">
+							<view class="font_size26 font_color33">
+								高级会员
+							</view>
+							<view class="margin_top3u">
+								<image src="../../../static/image/icon/homev3.png" class="vip_img" mode=""></image>
+							</view>
+							<view class="font_size26 font_color37">
+								<text class="font_size50">{{LevelNum.four}}</text>
+								人
+							</view>
+						</view>
+					</view>
+				</view>
+
 				<!-- 资金明细 -->
-				<view class="uni-flex display_space" @click="goToPage('capitalRecord')">
+				<view class="uni-flex display_space margin_top3" @click="goToPage('capitalRecord')">
 					<view class="font_size30 font_weight600">
 						资金明细
 					</view>
@@ -36,15 +107,14 @@
 						<image src="../../../static/image/icon/rightf.png" class="icon_right" mode=""></image>
 					</view>
 				</view>
-
 				<view class="">
-					<view class="moudel_bj">
+					<view class="moudel_bj" @click="goToPage('capitalRecord')">
 						<view class="text_center ">
 							<view class=" font_size24">
-								资金总额（元）
+								累计收益（元）
 							</view>
 							<view class="font_size44">
-								48,000.00
+								{{funds.totalIncomeAmount}}
 							</view>
 						</view>
 						<view class="uni-flex">
@@ -53,7 +123,7 @@
 									佣金总额（元）
 								</view>
 								<view class="font_size34">
-									40,000.00
+									{{funds.commissionAmount}}
 								</view>
 							</view>
 							<view class="width50 text_center" @click="goToPage('tcRecord')">
@@ -61,7 +131,7 @@
 									提成总额（元）
 								</view>
 								<view class="font_size34">
-									8,000.00
+									{{funds.deductAmount}}
 								</view>
 							</view>
 
@@ -69,55 +139,11 @@
 					</view>
 				</view>
 
-				<!-- 排行榜 -->
-				<view class="uni-flex display_space" @click="goToPage('rankingList')">
-					<view class="font_size30 font_weight600">
-						排行榜
-					</view>
-					<view class="font_size20 font_color66 margin_right3">
-						查看明细
-						<image src="../../../static/image/icon/rightf.png" class="icon_right" mode=""></image>
-					</view>
-				</view>
-				<!-- 排行榜列表 -->
-				<view class="">
-					<view class="uni-flex border_bottom padding_bottom2 padding_top2" v-for="(item,index) in listOne" :key="index">
-						<view class="width15 text_center">
-							<image :src="item.imgUrl" class="list_header" mode=""></image>
-						</view>
-						<view class="width70">
-							<view class="uni-flex ">
-								<view class="">
-									{{item.name}}
-								</view>
-								<view class="">
-									<view class="my_vipbj">
-										普通会员
-									</view>
-								</view>
-							</view>
-							
-							<view class=" uni-flex ">
-								<view class="">
-									<image src="../../../static/image/holdAll/goMOney.png" class="list_money" mode=""></image>
-								</view>
-								<view class="margin_left2 font_size30" style="margin-top:-1% ;">
-										{{item.number}}
-								</view>
 
-							</view>
-						</view>
-						
-						<view class="width10 margin_top3">
-							<image :src="'../../../static/image/holdAll/vip' + item.vip + '.png'" class="list_vip" mode=""></image>
-						</view>
-					</view>
-			
-				</view>
-				
+
 				<!-- 二维码 -->
-				
-				<view class=""  @click="onClick">
+
+				<view class="" @click="onClick">
 					<image src="../../../static/image/icon/homeE.png" mode="" class="bottom_img"></image>
 				</view>
 
@@ -132,23 +158,39 @@
 	export default {
 		data() {
 			return {
-				orderList: [{
-						name: '订单查询',
+				LevelNum: '', //会员人数
+				imgList: [],
+				orderList: [
+					// {
+					// 	name: '订单查询',
+					// 	url: '../../../static/image/icon/order1.png',
+					// 	tabClass: 'order1_img',
+					// 	falg: 'order'
+					// },
+					// {
+					// 	name: '新闻资讯',
+					// 	url: '../../../static/image/icon/order3.png',
+					// 	tabClass: 'order2_img',
+					// 	falg: 'journalism'
+					// },
+					{
+						name: '申请进度查询',
 						url: '../../../static/image/icon/order1.png',
 						tabClass: 'order1_img',
-						falg:'order'
+						falg: 'order'
 					},
 					{
-						name: '新闻资讯',
-						url: '../../../static/image/icon/order3.png',
-						tabClass: 'order2_img',
-						falg:'journalism'
+						name: '办卡指南',
+						url: '../../../static/image/icon/new.png',
+						tabClass: 'order1_img',
+						falg: 'cardGuide'
 					},
+
 					{
 						name: '消息中心',
 						url: '../../../static/image/icon/order2.png',
 						tabClass: 'order3_img',
-						falg:'msg'
+						falg: 'msg'
 					}
 				],
 
@@ -174,86 +216,122 @@
 						id: '78687567567575'
 					}
 				],
-				
-				
-				funds:''//资金明细
+
+				msg: '', //滚动消息
+				funds: '' //资金明细
 
 			}
 		},
 		onShow() {
+			uni.setStorageSync('memberId', '1');
 			this.init()
 		},
 		methods: {
-			
-			init(){
+			// 轮播滑动操作
+			handleChange(e) {
+				this.currentIndex = e.detail.current;
+			},
+			// 点击轮播操做
+			swiperClick(e) {
+				console.log(e);
+
+				uni.navigateTo({
+					url: '../../bindingIdentity/bindingIdentity'
+				})
+				// uni.navigateTo({
+				// 	url: '../../lunBDetails/lunBDetails'
+				// })
+			},
+			init() {
+				// 获取首页轮播
+				this.$http.get('/bannerApi/banner').then(res => {
+					console.log('7')
+					if (res.data.code == 200) {
+						this.imgList = res.data.data
+					}
+				})
+				//获取滚动公告
+				this.$http.get('/buyLevelApi/getLevelNum').then(res => {
+					if (res.data.code == 200) {
+						this.msg = res.data.data
+					}
+				})
+				//获取会员人数
+				this.$http.get('/mb/getLevelNum').then(res => {
+					if (res.data.code == 200) {
+						this.LevelNum = res.data.data[0]
+					}
+				})
 				// 获取查询首页用资金明细
 				var data = {
-					memberId:'1'
+					memberId: uni.getStorageSync('memberId')
 				}
-				this.$http.get('/acc/funds',data).then(res => {
+				this.$http.get('/acc/funds/' + data.memberId, ).then(res => {
 					console.log(JSON.stringify(res));
-				
 					if (res.data.code == 200) {
 						this.funds = res.data.data
 					}
 				}).catch(err => {
-				
+
 				})
 			},
-			
-			
-			
-			goToPage(falg){
+
+
+
+			goToPage(falg) {
 				console.log(falg)
 				let urlFalg = falg
 				uni.navigateTo({
-					url:'../../' + urlFalg + '/' + urlFalg
+					url: '../../' + urlFalg + '/' + urlFalg
 				})
 			},
 			// 复制
-			 onClick(){
-				    let url = encodeURIComponent('www.tongfupay.net');  // 注意一定要encodeURIComponent
-				    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5d7f40ad90aaa137&redirect_uri='+ url+'&response_type=code&scope=${DefaultConfig.loginWay}&state=#wechat_redirect'
-				
-			        this.$copyText('你好啊勺子').then(
-			      res => {
-			               console.log('复制成功')
-			      },
-			      err => {
-			         console.log('复制失败')
-			      }
-			         );
-			      }
-			
-			
-			
+			onClick() {
+				uni.setClipboardData({
+					data: '文的发生字',
+					success: function(data) {},
+					fail: function(err) {},
+					complete: function(res) {}
+				})
+			}
+
+
+
 		}
 	}
 </script>
 
 <style lang="less">
-	.top_img {
-		width: 100%;
-		height: 336upx;
-	}
-
 	.moudel_width {
 		width: 94%;
 		margin-left: 3%;
 		padding-bottom: 5%;
 	}
 
-	.order_moudel {
+	.memberMoudel {
 		width: 94%;
 		margin-left: 3%;
-		-moz-box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
-		-webkit-box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
-		box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
-		height: 154upx;
+		padding-top: 30upx;
+		height: 344upx;
 		background: #ffffff;
 		border-radius: 30upx;
-		margin-top: -30upx;
-		position: absolute;
+		box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
+		margin-top: 20upx;
+	}
+
+	.order_moudel {
+		width: 100%;
+		padding-top: 20upx;
+		padding-bottom: 20upx;
+		background: #ffffff;
+		// border-radius: 30upx;
+		// margin-top: -30upx;
+		// position: absolute;
+		// margin-left: 3%;
+		// -moz-box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
+		// -webkit-box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
+		// box-shadow: 0upx 4upx 16upx 0upx #dde2ef;
+		// height: 154upx;
 	}
 
 	.order1_img {
@@ -313,12 +391,13 @@
 		height: 24upx;
 		margin-right: 3%;
 	}
-	
-	.bottom_img{
+
+	.bottom_img {
 		height: 140upx;
 		width: 100%;
 		margin-top: 40upx;
 	}
+
 	.my_vipbj {
 		width: 130upx;
 		height: 30upx;
@@ -331,5 +410,47 @@
 		margin-top: 10upx;
 		margin-left: 10upx;
 		padding-right: 1%;
+	}
+
+
+
+
+	// 轮播
+	.imageContainer {
+		width: 100%;
+		height: 300upx;
+	}
+
+	.itemImg {
+		width: 100%;
+		height: 300upx;
+	}
+
+	// 公告
+	.gong_g_m {
+		background: #FFFFFF;
+		height: 70upx !important;
+		margin-left: 20upx;
+		border-bottom: 1px solid #EEEEEE;
+		width: 94%;
+	}
+
+	.img_cnter {
+		text-align: center;
+		height: 40upx;
+		width: 20%;
+		margin-top: 2%;
+		border-right: 1px solid #EBEBEB;
+	}
+
+	.swiper_item_font {
+		color: #333333;
+		font-size: 26upx;
+		margin-left: 2%;
+	}
+
+	.vip_img {
+		width: 48upx;
+		height: 44upx;
 	}
 </style>

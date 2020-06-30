@@ -1,44 +1,49 @@
 <template>
 	<view>
 		<view class="recomment_moudel">
-			<view class="recomment_moudel1">
-				<view class="font_size22 font_color99 text_right margin_right3 margin_top3">
-					2020-06-12 10:30:28
+			
+		</view>
+		<view class="recomment_moudel1">
+			<view class="font_size22 font_color99 text_right margin_right3 margin_top3">
+				{{recommendData.createTime}}
+			</view>
+			<view class="uni-flex">
+				<view class="margin_left3">
+					<image :src="recommendData.headImgurl" style="width: 100upx;height: 100upx;border-radius: 50%;" mode=""></image>
 				</view>
-				<view class="uni-flex">
-					<view class="margin_left3">
-						<image src="../../static/image/ces.png" style="width: 100upx;height: 100upx;border-radius: 50%;" mode=""></image>
-					</view>
-					<view class="margin_left3">
-						<view class="uni-flex">
-							<view class="">
-								王中王
-							</view>
-							<view class="my_vipbj">
-								普通会员
-							</view>
+				<view class="margin_left3">
+					<view class="uni-flex">
+						<view class="width50 text_hidden">
+							{{recommendData.nickName}}
 						</view>
-						<view class="font_size24">
-							手机号：186****7799
+						<view class="my_vipbj">
+							{{recommendData.levelName}}
 						</view>
 					</view>
-				</view>
-				<view class="uni-flex">
-					<view class="list_btn1" @click="getMyQcode" >
-						<image src="../../static/image/icon/wxb.png" style="width: 32upx;height: 26upx;" mode=""></image>
-						<text class="margin_left2">微信聊</text>
+					<view class="font_size24">
+						手机号：
+						<text v-if="recommendData.mobile">{{recommendData.mobile}}</text>
+						<text v-else>--</text>
 					</view>
-					<view class="list_btn2" @click="getPhone">
-						<image src="../../static/image/icon/phone.png" style="width: 30upx;height: 26upx;" mode=""></image>
-						<text class="margin_left2">电话聊</text>
-					</view>
-				</view>
-				
-				<view class="">
-					<image src="" mode=""></image>
 				</view>
 			</view>
+			<view class="uni-flex">
+				<view class="list_btn1" @click="copyClick">
+					<image src="../../static/image/icon/wxb.png" style="width: 32upx;height: 26upx;" mode=""></image>
+					<text class="margin_left2">微信聊</text>
+				</view>
+				<view class="list_btn2" @click="gotoTele">
+					<image src="../../static/image/icon/phone.png" style="width: 30upx;height: 26upx;" mode=""></image>
+					<text class="margin_left2">电话聊</text>
+				</view>
+			</view>
+		
+			<view class="">
+				<image src="" mode=""></image>
+			</view>
 		</view>
+				
+				
 	</view>
 </template>
 
@@ -46,10 +51,69 @@
 	export default {
 		data() {
 			return {
-
+				recommendData: '',
+				phone:''
 			}
 		},
+		mounted() {
+			this.funReferrer(); //获取数据
+		},
 		methods: {
+			funReferrer: function() {
+				this.$http.get('/mb/referrer/' + uni.getStorageSync('memberId')).then(res => {
+					if (res.data.code == 200) {
+						this.recommendData = res.data.data;
+						this.phone = res.data.data.mobile
+						this.recommendData.mobile = this.recommendData.mobile.substr(0, 3) + '****' + this.recommendData.mobile.substr(
+							7, 10)
+					}
+				})
+			},
+			// 复制
+			copyClick: function() {
+				console.log(0)
+				if(!this.recommendData.wxNumber){
+					uni.showToast({
+						title: '用户未绑定微信',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return;
+				}else{
+					uni.setClipboardData({
+						data: this.recommendData.wxNumber,
+						success: function(data) {
+							uni.showToast({
+								title: '复制成功',
+								icon: 'none',
+								duration: 2000,
+								position: 'top',
+							});
+						},
+						fail: function(err) {},
+						complete: function(res) {}
+					})
+								
+				}
+			
+			
+			},
+			/* 联系客服 */
+			gotoTele(){
+				 uni.makePhoneCall({
+				 // 手机号
+				phoneNumber: this.phone, 
+				// 成功回调
+				success: (res) => {
+						console.log('调用成功!')        
+				},
+				// 失败回调
+				fail: (res) => {
+						console.log('调用失败!')
+				}
+			  });
+			},
 
 		}
 	}
@@ -60,8 +124,8 @@
 		background: url(../../static/image/holdAll/recommend.png) no-repeat;
 		width: 100%;
 		height: 100%;
-		position: fixed;
-		z-index: -1;
+		position:absolute;
+		z-index: -999;
 		background-position: 0px 0px;
 		background-size: 100% 100%;
 	}
@@ -74,6 +138,7 @@
 		border-radius: 20upx;
 		margin-left: 3%;
 		height: 260upx;
+		z-index: 999;
 	}
 
 	.my_vipbj {

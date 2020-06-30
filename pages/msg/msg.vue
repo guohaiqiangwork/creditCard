@@ -2,31 +2,32 @@
 	<view>
 		<!-- tab -->
 		<view class="background_colorff">
-			<view class="item_tab" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index)" :style="tabIndex == index ?'color:#374CE5' :'' ">
+			<view class="item_tab" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index + 1)" :style="tabIndex == index + 1 ?'color:#374CE5' :'' ">
 				{{item.name}}
 			</view>
 		</view>
 
 		<!-- 列表 -->
-
 		<view class="list_width padding_bottom3 padding_top2">
-			<view class="moudel_list" v-for="(item,index) in [1,2,3,4,5]" :key="index" @click="goToDetail()">
-				<view class="top_border"></view>
+			<view v-if="msglist.length > 0" class="moudel_list" v-for="(item,index) in msglist" :key="index" @click="goToDetail(item.id)">
+				<view class="" style="height: 13upx;">
+					<view class="top_border" v-if="item.isRead == 2"></view>
+				</view>
 				<view class="uni-flex display_space">
-					<view class="font_size30 ">
-						系统通知
+					<view class="font_size30 width50 text_hidden ">
+						{{item.title}}
 					</view>
 					<view class="font_size22 font_colorcc ">
-						2020-03-11
+						{{item.createTime}}
 					</view>
 				</view>
 				<view class="font_size26 lsit_hidden">
-					请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤勤洗手请戴口罩勤洗手请戴口罩勤洗手请戴口罩勤...
+					{{item.content}}
 				</view>
 			</view>
 		</view>
-		
-		<view class="text_center" >
+
+		<view class="text_center" v-if="msglist.length == 0">
 			<image src="../../static/image/noContent/noMsg.png" mode="" style="width: 392upx;height: 410upx;"></image>
 			<view class="font_size28 font_colorcc">
 				暂无提成记录~
@@ -50,16 +51,30 @@
 						name: '最新活动'
 					}
 				],
-				tabIndex: 0,
+				tabIndex: 1,
+				msglist: ''
 			}
+		},
+		onShow() {
+			this.funMsgList(); //获取消息列表
 		},
 		methods: {
 			tabSwitch(index) {
-				this.tabIndex = index
+				this.tabIndex = index;
+				this.funMsgList(); //处理数据
+				// console.log(this.tabIndex)
 			},
-			goToDetail(){
+			goToDetail(id) {
 				uni.navigateTo({
-					url:'../msgDetail/msgDetail'
+					url: '../msgDetail/msgDetail?msgId=' + id
+				})
+			},
+			// 获取消息
+			funMsgList() {
+				this.$http.get('/msg/' + this.tabIndex).then(res => {
+					if (res.data.code == 200) {
+						this.msglist = res.data.data
+					}
 				})
 			}
 		}

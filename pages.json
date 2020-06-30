@@ -78,72 +78,66 @@
 				},
 				"enablePullDownRefresh": false
 			}
-		}
-	    ,{
-            "path" : "pages/capitalRecord/capitalRecord",
-           "style": {
-           	"app-plus": {
-           		"titleNView": false,
-           		"backgroundTextStyle": "dark"
-           	},
-           	"enablePullDownRefresh": false
-           }
-        }
-        ,{
-            "path" : "pages/rankingList/rankingList",
-            "style": {
-            	"app-plus": {
-            		"titleNView": false,
-            		"backgroundTextStyle": "dark"
-            	},
-            	"enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/Withdrawal/Withdrawal",
-            "style": {
-            	"app-plus": {
-            		"titleNView": false,
-            		"backgroundTextStyle": "dark"
-            		// "navigationBarTitleText":"申请提现"
-            	},
-            	"enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/withdrawalList/withdrawalList",
-            "style": {
-            	"app-plus": {
-            		"titleNView": false,
-            		"backgroundTextStyle": "dark"
-            		// "navigationBarTitleText":"提现记录"
-            	},
-            	"enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/recommended/recommended",
-           "style": {
-           	"app-plus": {
-           		"titleNView": false,
-           		"backgroundTextStyle": "dark"
-           		// "navigationBarTitleText":"推荐人信息"
-           	},
-           	"enablePullDownRefresh": false
-           }
-        }
-        ,{
-            "path" : "pages/bindingIdentity/bindingIdentity",
-           "style": {
-           	"app-plus": {
-           		"titleNView": false,
-           		"backgroundTextStyle": "dark"
-           		// "navigationBarTitleText":"绑定身份信息"
-           	},
-           	"enablePullDownRefresh": false
-           }
-        },{
-			"path":"pages/commissionRecord/commissionRecord",
+		}, {
+			"path": "pages/capitalRecord/capitalRecord",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/rankingList/rankingList",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/Withdrawal/Withdrawal",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"申请提现"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/withdrawalList/withdrawalList",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"提现记录"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/recommended/recommended",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"推荐人信息"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/bindingIdentity/bindingIdentity",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"绑定身份信息"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/commissionRecord/commissionRecord",
 			"style": {
 				"app-plus": {
 					"titleNView": false,
@@ -152,8 +146,8 @@
 				},
 				"enablePullDownRefresh": false
 			}
-		},{
-			"path":"pages/tcRecord/tcRecord",
+		}, {
+			"path": "pages/tcRecord/tcRecord",
 			"style": {
 				"app-plus": {
 					"titleNView": false,
@@ -162,8 +156,8 @@
 				},
 				"enablePullDownRefresh": false
 			}
-		},{
-			"path":"pages/msgDetail/msgDetail",
+		}, {
+			"path": "pages/msgDetail/msgDetail",
 			"style": {
 				"app-plus": {
 					"titleNView": false,
@@ -172,46 +166,124 @@
 				},
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/information/information",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"个人信息"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/wechatBinding/wechatBinding",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"绑定微信"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/feedback/feedback",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"意见反馈"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/serviceAgreement/serviceAgreement",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"会员服务协议"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/payList/payList",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"支付列表"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/payResult/payResult",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"支付结果"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/withdrawalResult/withdrawalResult",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"提现结果"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/cardGuide/cardGuide",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"办卡指南"
+				},
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/lunBDetails/lunBDetails",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"轮播详情"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/passwordSet/passwordSet",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"密码设置"
+				},
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/exclusivePosters/exclusivePosters",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"backgroundTextStyle": "dark"
+					// "navigationBarTitleText":"专属海报"
+				},
+				"enablePullDownRefresh": false
+			}
 		}
-        ,{
-            "path" : "pages/information/information",
-            "style": {
-            	"app-plus": {
-            		"titleNView": false,
-            		"backgroundTextStyle": "dark"
-            		// "navigationBarTitleText":"个人信息"
-            	},
-            	"enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/wechatBinding/wechatBinding",
-            "style": {
-            	"app-plus": {
-            		"titleNView": false,
-            		"backgroundTextStyle": "dark"
-            		// "navigationBarTitleText":"绑定微信"
-            	},
-            	"enablePullDownRefresh": false
-            }
-        }
-        ,{
-            "path" : "pages/feedback/feedback",
-           "style": {
-           	"app-plus": {
-           		"titleNView": false,
-           		"backgroundTextStyle": "dark"
-           		// "navigationBarTitleText":"意见反馈"
-           	},
-           	"enablePullDownRefresh": false
-           }
-        }
-    ],
+	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "卡网通",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
 	},
 
 	"tabBar": {
@@ -219,26 +291,22 @@
 		"selectedColor": "#333333",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/tabBar/home/home",
-			"enablePullDownRefresh": false,
-			"text": "首页",
-			"iconPath": "static/image/tab/home.png",
-			"selectedIconPath": "static/image/tab/homeZ.png"
-		}, {
-			"pagePath": "pages/tabBar/category/category",
-			"text": "指南",
-			"iconPath": "static/image/tab/category.png",
-			"selectedIconPath": "static/image/tab/categoryZ.png"
-		}, {
-			"pagePath": "pages/tabBar/shopCart/shopCart",
-			"text": "团队",
-			"iconPath": "./static/image/tab/shopCart.png",
-			"selectedIconPath": "static/image/tab/shopCartZ.png"
-		}, {
-			"pagePath": "pages/tabBar/my/my",
-			"text": "我的",
-			"iconPath": "static/image/tab/my.png",
-			"selectedIconPath": "static/image/tab/myZ.png"
-		}]
+				"pagePath": "pages/tabBar/shopCart/shopCart",
+				"text": "",
+				"iconPath": "./static/image/tab/shopCart.png",
+				"selectedIconPath": "static/image/tab/shopCartZ.png"
+			},
+			{
+				"pagePath": "pages/tabBar/home/home",
+				"enablePullDownRefresh": false,
+				"iconPath": "static/image/tab/home.png",
+				"selectedIconPath": "static/image/tab/homeZ.png"
+			}, {
+				"pagePath": "pages/tabBar/my/my",
+				"text": "",
+				"iconPath": "static/image/tab/my.png",
+				"selectedIconPath": "static/image/tab/myZ.png"
+			}
+		]
 	}
 }
