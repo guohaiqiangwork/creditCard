@@ -8,6 +8,12 @@ import 'js_sdk/ican-H5Api/ican-H5Api.js'
 import validCode from './components/validCode.vue'
 Vue.component('validcode', validCode)
 
+// #ifdef H5  
+import wechat from './components/wxPay.js'  
+if(wechat.isWechat()){  
+    Vue.prototype.$wechat = wechat;  
+}  
+// #endif 
 
 Vue.config.productionTip = false
 

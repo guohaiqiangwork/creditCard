@@ -18,7 +18,7 @@
 						¥<text class="font_size60">{{item.price}}</text>
 					</view>
 					<view class="font_size22">
-						{{item.name}}
+						{{item.level_name}}
 					</view>
 				</view>
 
@@ -72,8 +72,8 @@
 
 			</view>
 
-			<view class="bottom_btn" @click="goPayList">
-				确认支付
+			<view :class="payFalg == 0 ? 'bottom_btn' :'bottom_btn_no' " @click="goPayList" >
+				确认支付 {{payFalg}}
 			</view>
 		</view>
 	</view>
@@ -85,25 +85,20 @@
 			return {
 				vipF:1,
 				usefalg:true,
-				vipList:[
-					{
-						name:'初级会员',
-						price:'99'
-					},
-					{
-						name:'中级会员',
-						price:'199'
-					},
-					{
-						name:'高级会员',
-						price:'399'
-					}
-				]
+				vipList:[],
+				payFalg:''
 			}
+		},
+		mounted() {
+			this.funGetMemberLevel();//获取当前人元等级
+				this.funGetLevelNum();//获取会员等级
 		},
 		methods: {
 			funVip:function(index){
-				this.vipF = index +1
+				console.log(index)
+				console.log(this.vipList[index])
+				this.vipF = index +1;
+				this.payFalg = this.vipList[index].isLevel
 			},
 			// 协议
 			tabFalg:function(){
@@ -117,8 +112,44 @@
 			},
 			// 去支付yem
 			goPayList:function(){
-				uni.navigateTo({
-					url:'../payList/payList'
+				if(this.payFalg == 1){
+					return;
+				}
+				// console.log(this.vipF);
+				// console.log(this.vipList[this.vipF - 1])
+				if(!this.usefalg){
+					uni.navigateTo({
+						url:'../payList/payList?payOrder=' + JSON.stringify(this.vipList[this.vipF - 1])
+					})
+				}else{
+					uni.showToast({
+						title: '请勾选协议',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+				}
+				
+			},
+			
+			
+			// 获取当前人等级   
+			funGetMemberLevel(){
+				this.$http.get('/mb/getMemberLevel/' + uni.getStorageSync('memberId')).then(res => {
+					console.log(JSON.stringify(res))
+					if (res.data.code == 200) {
+						this.berLevel =  res.data.data
+					}
+				})
+			},
+			// 获取会员等级
+			funGetLevelNum (){
+				this.$http.get('/levelApi/getLevelNum/'+ uni.getStorageSync('memberId')).then(res => {
+					console.log(JSON.stringify(res))
+					if (res.data.code == 200) {
+						this.vipList =  res.data.data;
+						this.payFalg = this.vipList[0].isLevel
+					}
 				})
 			}
 			
@@ -173,6 +204,16 @@
 		width: 100%;
 		height: 88upx;
 		background: #374ce5;
+		border-radius: 44upx;
+		text-align: center;
+		line-height: 88upx;
+		color: #FFFFFF;
+		margin-top: 30upx;
+	}
+	.bottom_btn_no {
+		width: 100%;
+		height: 88upx;
+		background: #999999;
 		border-radius: 44upx;
 		text-align: center;
 		line-height: 88upx;

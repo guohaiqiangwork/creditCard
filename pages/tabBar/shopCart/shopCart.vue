@@ -105,9 +105,9 @@
 						</template> -->
 
 					</view>
-					<view class="page_width moudel_btn" @click="colseMyQcode">
+					<!-- <view class="page_width moudel_btn" @click="colseMyQcode">
 						保存图片
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</template>
@@ -213,6 +213,9 @@
 				// 		});
 				// 	}
 				// });
+				
+				
+				
 
 				uni.downloadFile({
 					url: this.moudelWxQr, //图片地址

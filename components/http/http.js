@@ -8,24 +8,21 @@ http.setConfig((config) => { /* 设置全局配置 */
 	if (process.env.VUE_APP_PLATFORM === 'h5') {
 		// config.baseUrl = '/dep';　
 		config.baseUrl = 'http://182.92.149.76';
-		// console.log('开发环境H5')　　https://www.bjxrkj.com/api　　　　　　　　　　　　　　
+		// console.log('开发环境H5')　
 	} else {
 		//config.baseUrl = 'http://47.105.108.144:8080/primary';　
 		config.baseUrl = 'http://xypay.expresslines.cn';
-
 	}
-	config.header = {
-		//token: token,
-		// 'client': 'APP',
-	}
+	// config.header = {
+	// 	//token: token,
+	// 	// 'client': 'APP',
+	// }
 
 	return config
 })
 
 http.interceptor.request((config, cancel) => { /* 请求之前拦截器 */
 	config.header = {
-		// 'content-type': 'application/x-www-form-urlencoded', // 默认值 
-		// 'Content-Type': 'application/json;charset=UTF-8',
 		'Authorization': "Bearer " + uni.getStorageSync('token'),
 		'client': 'APP',
 		...config.header
@@ -33,10 +30,10 @@ http.interceptor.request((config, cancel) => { /* 请求之前拦截器 */
 	uni.showLoading({
 		title: '加载中'
 	});
+
 	return config;
 })
 http.interceptor.response((response) => { /* 请求之后拦截器 */
-	console.log(response + '就看风景')
 	uni.hideLoading();
 	if (response.data) {
 		if (response.data.code == 200) {

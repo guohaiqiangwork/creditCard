@@ -31,7 +31,7 @@
 			<view class="moudel_width">
 				<!--办卡 -->
 				<view class="uni-flex">
-					<view class="">
+					<view class=""  @click="goToUrl">
 						<image src="../../../static/image/holdAll/home1.png" mode="" class="card_img1"></image>
 					</view>
 					<view class="" @click="goToPage('membership')">
@@ -161,18 +161,7 @@
 				LevelNum: '', //会员人数
 				imgList: [],
 				orderList: [
-					// {
-					// 	name: '订单查询',
-					// 	url: '../../../static/image/icon/order1.png',
-					// 	tabClass: 'order1_img',
-					// 	falg: 'order'
-					// },
-					// {
-					// 	name: '新闻资讯',
-					// 	url: '../../../static/image/icon/order3.png',
-					// 	tabClass: 'order2_img',
-					// 	falg: 'journalism'
-					// },
+					
 					{
 						name: '申请进度查询',
 						url: '../../../static/image/icon/order1.png',
@@ -194,29 +183,6 @@
 					}
 				],
 
-				listOne: [{
-						number: '1111',
-						imgUrl: '../../../static/image/ces.png',
-						vip: '1',
-						name: '掌声',
-						id: '78687567567575'
-					},
-					{
-						number: '333333111',
-						imgUrl: '../../../static/image/ces.png',
-						vip: '2',
-						name: '掌用户声',
-						id: '78687567567575'
-					},
-					{
-						number: '1',
-						imgUrl: '../../../static/image/ces.png',
-						vip: '3',
-						name: '用户1',
-						id: '78687567567575'
-					}
-				],
-
 				msg: '', //滚动消息
 				funds: '' //资金明细
 
@@ -235,12 +201,12 @@
 			swiperClick(e) {
 				console.log(e);
 
-				uni.navigateTo({
-					url: '../../bindingIdentity/bindingIdentity'
-				})
 				// uni.navigateTo({
-				// 	url: '../../lunBDetails/lunBDetails'
+				// 	url: '../../bindingIdentity/bindingIdentity'
 				// })
+				uni.navigateTo({
+					url: '../../lunBDetails/lunBDetails?id= ' + e
+				})
 			},
 			init() {
 				// 获取首页轮播
@@ -273,17 +239,49 @@
 					}
 				}).catch(err => {
 
-				})
+				});
+				// 申请信用卡地址
+				var dataone = {
+					memberId: uni.getStorageSync('memberId')
+				}
+				this.$http.get('/apply/applyCreditCardView',dataone ).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						this.xinCardUrl = res.data.data;
+						console.log(this.xinCardUrl)
+					}
+				}).catch(err => {
+				
+				});
+				
+				// 订单
+				this.$http.get('/apply/queryOrder',dataone ).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						this.orderUrl = res.data.data;
+						console.log(this.orderUrl)
+					}
+				}).catch(err => {
+				
+				});
 			},
 
 
-
+			// 去申请信息卡
+			goToUrl(){
+				window.open(this.xinCardUrl)
+			},
 			goToPage(falg) {
 				console.log(falg)
 				let urlFalg = falg
-				uni.navigateTo({
-					url: '../../' + urlFalg + '/' + urlFalg
-				})
+				if(urlFalg == 'order'){
+					window.open(this.orderUrl)
+				}else{
+					uni.navigateTo({
+						url: '../../' + urlFalg + '/' + urlFalg
+					})
+				}
+				
 			},
 			// 复制
 			onClick() {

@@ -245,6 +245,7 @@
 							})
 						}
 					})
+				
 				} else {
 					uni.navigateTo({
 						url: '../../' + urlFalg + '/' + urlFalg

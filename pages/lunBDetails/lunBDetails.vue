@@ -12,11 +12,29 @@
 		},
 		data() {
 			return {
-				loading: false //开启loading不显示默认值
+				loading: false ,//开启loading不显示默认值
+				id:'',
+				item:''
 			}
 		},
+		onLoad(e){
+			console.log(e)
+			this.id = e.id
+		},
+		mounted() {
+			this.getLunb();
+		},
 		methods: {
-
+			getLunb(){
+				this.$http.get('/bannerApi/getBanner/'+this.id, ).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						this.item = res.data.data
+					}
+				}).catch(err => {
+				
+				})
+			}
 		}
 	}
 </script>

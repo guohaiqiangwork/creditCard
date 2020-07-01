@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="payR_moudel">
-			<block>
+			<block v-if="payMoudelF.isYes == 1">
 				<view class="text_center">
 					<image src="../../static/image/icon/payR.png" class="payR_img" mode=""></image>
 				</view>
@@ -9,7 +9,7 @@
 					支付成果
 				</view>
 			</block>
-			<block>
+			<block v-if="payMoudelF.isYes == 0">
 				<view class="text_center">
 					<image src="../../static/image/icon/payR1.png" class="payR_img" mode=""></image>
 				</view>
@@ -24,7 +24,7 @@
 					支付金额
 				</view>
 				<view class="font_size30 font_color33">
-					￥399.00
+					￥{{payMoudelF.je}}
 				</view>
 			</view>
 			<view class="uni-flex margin_left3 margin_top3">
@@ -40,7 +40,7 @@
 					订单编号
 				</view>
 				<view class="font_size30 font_color33">
-					20195465431216544657
+					{{payMoudelF.orderId}}
 				</view>
 			</view>
 		</view>
@@ -59,6 +59,10 @@
 			return {
 
 			}
+		},
+		onLoad(e){
+			console.log(JSON.parse(e.payFlag));
+			this.payMoudelF = JSON.parse(e.payFlag)
 		},
 		methods: {
 

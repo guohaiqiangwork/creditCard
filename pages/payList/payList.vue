@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="font_size60 text_center pay_moudel">
-			￥399.00
+			￥{{payOrderD.price}}
 		</view>
 
 		<view class="payt_moudel">
@@ -13,7 +13,7 @@
 					<image src="../../static/image/icon/payList2.png" class="pay_img" mode=""></image>
 				</view>
 				<view class="font_size30 width75">
-					余额支付(200,000.00)
+					余额支付({{yeFalg}})
 				</view>
 				<view class="">
 					<radio-group @change="radioChange">
@@ -35,14 +35,14 @@
 				</view>
 			</view>
 		</view>
-		
-		
+
+
 		<view class="bottom_btn" @click="openPassword">
 			确认支付
 		</view>
-		
-		
-		
+
+
+
 		<!-- 支付密码 -->
 		<template v-if="payFalg">
 			<view class="moudel_content">
@@ -65,19 +65,19 @@
 						需支付
 					</view>
 					<view class="font_color33 font_size60 text_center" v-if="!setFalg">
-						￥{{money}}
+						￥{{payOrderD.price}}
 					</view>
 					<view class="margin_top5">
 						<validcode :maxlength="6" :isPwd="true" @finish="getPwd" ref="pwd"></validcode>
 					</view>
-		
-					<view class="moudel_btn" v-if="setFalg" @click="getSetPassword">
+
+					<view class="moudel_btn" v-if="setFalg" @click="funSetPassword">
 						确认
 					</view>
 				</view>
 			</view>
 		</template>
-		
+
 	</view>
 </template>
 
@@ -88,35 +88,102 @@
 				current: '',
 				setFalg: false, //密码设置框
 				payFalg: false, //密码支付框
-				money:'99'
+				money: '99',
+				payOrderD: '',
+				yeFalg:'',
+				passwordNum:''//密码
+
 			}
 		},
+		onLoad(e) {
+			console.log(JSON.parse(e.payOrder));
+			this.payOrderD = JSON.parse(e.payOrder)
+		},
+		mounted() {
+			this.funGetSxf(); //获取余额
+		},
 		methods: {
+			// 选择支付方式
 			radioChange(evt) {
 				this.current = evt.target.value
 				console.log(evt.target.value)
 			},
+
+		
+			// 获取余额
+			funGetSxf() {
+				this.$http.get('/mb/getSxf/' + uni.getStorageSync('memberId'), ).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						this.yeFalg = res.data.data.ye
+					}
+				}).catch(err => {
+
+				})
+			},
+			
+			// 微信支付
+			funWxpay(){
+				var data = {
+					id: uni.getStorageSync('memberId'),
+					balance:this.payOrderD.price,
+					levelId:this.payOrderD.id
+				}
+				this.$http.post('/acc/wxPay',data,true).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						
+					}else{
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
+					}
+				}).catch(err => {
+				
+				})
+			},
+			
 			
 			// 去支付
-			openPassword(){
-				this.payFalg = true;
-				uni.navigateTo({
-					url:'../payResult/payResult'
-				})
+			openPassword() {
+				if(this.current == 'W'){
+					this.funWxpay();
+				}else{
+					this.$http.get('/acc/isSetPassword/' + uni.getStorageSync('memberId')).then(res => {
+						console.log(JSON.stringify(res))
+						if (res.data.code == 500) {
+							this.setFalg = true; //未设置密码
+							this.payFalg = true;
+						}else{
+							this.payFalg = true;
+						}
+					})
+				}
+				
+				// 
+				// uni.navigateTo({
+				// 	url: '../payResult/payResult'
+				// })
 			},
 			// 获取密码
 			getPwd(val) {
-				if (this.setFalg) {
-					this.passwordSix = val
-				} else {
+				if(this.setFalg){
+					this.passwordNum = val;//获取支付密码
+				}else{
 					var data = {
-						memberId: uni.getStorageSync('userId'),
-						password: val
+						id: uni.getStorageSync('memberId'),
+						balance: this.payOrderD.price,
+						levelId:this.payOrderD.id
 					};
-					this.$http.post('/account/passwordCheck', data).then(res => {
+					this.$http.post('/acc/banncePay', data,true).then(res => {
 						if (res.data.code == 200) {
 							this.payFalg = false;
-							this.getNewOrder()
+							uni.navigateTo({
+								url: '../payResult/payResult?payFlag='+ JSON.stringify(res.data.data)
+							})
 						} else {
 							this.$refs.pwd.clear(); //清空密码
 							uni.showToast({
@@ -127,11 +194,36 @@
 							});
 						}
 					}).catch(err => {})
-			
+					
 				}
-			
+
 			},
-			
+			// 设置支付密码
+			funSetPassword: function() {
+				var data = {
+					mbId: uni.getStorageSync('memberId'),
+					password: this.passwordNum
+				}
+				this.$http.post('/acc/setPassword', data, true).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						uni.showToast({
+							title: '设置成功',
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
+						this.setFalg  = false; //未设置密码
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
+					}
+				})
+			},
 		}
 	}
 </script>
@@ -162,6 +254,7 @@
 		width: 42upx;
 		height: 42upx;
 	}
+
 	.bottom_btn {
 		width: 94%;
 		margin-left: 3%;
@@ -174,9 +267,9 @@
 		position: fixed;
 		bottom: 3%;
 	}
-	
-	
-	
+
+
+
 	/* 密码框 */
 	.moudel_content {
 		height: 100%;
@@ -187,6 +280,7 @@
 		top: 0;
 		left: 0;
 	}
+
 	.content_block {
 		background-color: #FFFFFF;
 		width: 90%;
@@ -194,8 +288,9 @@
 		border-radius: 16px;
 		position: absolute;
 		top: 18%;
+		padding-bottom: 30upx;
 	}
-	
+
 	.content_block_pay {
 		background-color: #FFFFFF;
 		width: 90%;
@@ -206,7 +301,7 @@
 		top: 20%;
 		height: 438upx;
 	}
-	
+
 	.moudel_img {
 		width: 30upx;
 		height: 30upx;
@@ -214,4 +309,17 @@
 		margin-left: 3%;
 	}
 	
+	.moudel_btn {
+		height: 70upx;
+		width: 222upx;
+		background-color: #374CE5;
+		color: #FFFFFF;
+		font-size: 30upx;
+		text-align: center;
+		border-radius: 50upx;
+		align-items: center;
+		line-height: 70upx;
+		margin-top: 30upx;
+		margin-left: 32%;
+	}
 </style>
