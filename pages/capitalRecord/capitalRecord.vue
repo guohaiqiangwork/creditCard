@@ -58,7 +58,7 @@
 					</view>
 					<view class="font_size30 margin_right3">
 						<text v-if="item.type == 1">+</text>
-						<text v-else>+</text>
+						<text v-else>-</text>
 						{{item.amount}}
 					</view>
 				</view>
@@ -125,6 +125,10 @@
 		mounted() {
 			this.funFlowList(); //初始化加载页面
 		},
+		onLoad(option) {
+			console.log(option)
+			this.index = option.type
+		},
 		methods: {
 			// 时间格式话
 			formatDate: function(value) {
@@ -137,6 +141,7 @@
 				var s = date.getSeconds();
 				return Y + '年' + M + '月' + D + '日';
 			},
+			
 			// 分类
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为：' + e.detail.value)
@@ -203,6 +208,7 @@
 					mbId: uni.getStorageSync('memberId'),
 					startTime: this.dataStartDate,
 					status: this.index,
+					type: 1
 				}
 				this.$http.post('/acc/flow', data, true).then(res => {
 					if (res.data.code == 200) {

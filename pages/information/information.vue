@@ -7,8 +7,11 @@
 			<view class="font_size32">
 				{{infoData.nickName}}
 			</view>
-			<view class="font_size40">
+			<view class="font_size40" v-if="infoData.name">
 				{{infoData.name}}
+			</view>
+			<view class="font_size40" v-else>
+				—— —— ——
 			</view>
 		</view>
 
@@ -22,8 +25,12 @@
 						<view class="width75 text_right">
 							{{infoData.mobile}}
 						</view>
-						<view class="font_size30 width25 text_right" style="color: #374CE5;" @click="goPhone">
+						<view v-if="infoData.mobile" class="font_size30 width25 text_right" style="color: #374CE5;" @click="goPhone">
 							去修改
+							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
+						</view>
+						<view v-else class="font_size30 width25 text_right" style="color: #374CE5;" @click="goBindPhone">
+							去绑定
 							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
 						</view>
 
@@ -38,12 +45,12 @@
 						<view class="width75 text_right">
 							{{infoData.wxNumber}}
 						</view>
-						<view class="font_size30 width25 text_right" style="color: #374CE5;" v-if="true" @click="goToBinding">
+						<view v-if="infoData.wxNumber" class="font_size30 width25 text_right" style="color: #374CE5;"  @click="goToBinding">
 							去修改
 							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
 						</view>
 
-						<view class="font_size30 width25 text_right" style="color: #374CE5;" v-else>
+						<view  class="font_size30 width25 text_right" style="color: #374CE5;" v-else @click="goToBinding">
 							去绑定
 							<image src="../../static/image/icon/rightb.png" class="margin_left2" style="width: 8upx;height: 14upx;" mode=""></image>
 						</view>
@@ -54,9 +61,14 @@
 					<view class="font_size30 width20">
 						身份证
 					</view>
-					<view class="width80 font_color66 font_size30 text_right" style="align-items: center;">
+					<view v-if="infoData.idCard" class="width80 font_color66 font_size30 text_right" style="align-items: center;">
 						{{infoData.idCard}}
 					</view>
+					<view v-else class="width80 font_color66 font_size30 text_right" style="align-items: center;">
+						绑定后显示
+					</view>
+					
+					
 				</view>
 
 			</view>
@@ -76,7 +88,7 @@
 					</view>
 					<template>
 						<view class="font_size30 border_bottom margin_top5 padding_top3 padding_bottom3">
-							<input type="text" class="margin_left2" maxlength="11" value="" @input="keyPhone" placeholder="请输入您的手机号" />
+							<input type="text" class="margin_left2" maxlength="11" value="" @input="keyPhone" placeholder="请输入您的手机号" placeholder-style='color:#cccccc'/>
 						</view>
 						<view class="uni-flex border_bottom padding_top3 padding_bottom3">
 							<view class="width60 margin_left2">
@@ -108,7 +120,9 @@
 				infoData: ''
 			}
 		},
-		mounted() {
+		
+		onShow() {
+			this.infoData =''
 			this.funGetInfo()
 		},
 		methods: {
@@ -122,8 +136,12 @@
 					console.log(JSON.stringify(res))
 					if (res.data.code == 200) {
 						this.infoData = res.data.data;
-						this.infoData.idCard = this.infoData.idCard.substr(0, 6) + '******' + this.infoData.idCard.substr(14, 18)
-						this.infoData.mobile = this.infoData.mobile.substr(0, 3) + '****' + this.infoData.mobile.substr(7, 10)
+						if(this.infoData.idCard){
+							this.infoData.idCard = this.infoData.idCard.substr(0, 6) + '******' + this.infoData.idCard.substr(14, 18)
+						}
+						if(this.infoData.mobile){
+							this.infoData.mobile = this.infoData.mobile.substr(0, 3) + '****' + this.infoData.mobile.substr(7, 10)
+						}
 					}
 				})
 			},
@@ -147,7 +165,13 @@
 			// 微信绑定
 			goToBinding() {
 				uni.navigateTo({
-					url: '../wechatBinding/wechatBinding'
+					url: '../wechatBinding/wechatBinding?falg=' + this.infoData.wxNumber
+				})
+			},
+			// 绑定手机号
+			goBindPhone:function(){
+				uni.navigateTo({
+					url: '../bindingIdentity/bindingIdentity'
 				})
 			},
 			// 获取验证码

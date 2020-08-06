@@ -1,0 +1,24 @@
+{
+  "name": "creditCard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guohaiqiangwork/creditCard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guohaiqiangwork/creditCard/issues"
+  },
+  "homepage": "https://github.com/guohaiqiangwork/creditCard#readme",
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "jweixin-module": "^1.6.0"
+  }
+}

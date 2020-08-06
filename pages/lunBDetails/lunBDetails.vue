@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-parse :content="item.content" :loading="loading" @preview="preview" @navigate="navigate" />
+		<u-parse :content="item.content"  />
 	</view>
 </template>
 

@@ -1,5 +1,5 @@
 {
-    "name" : "creditCard-h5",
+    "name" : "卡网通",
     "appid" : "__UNI__AF660AE",
     "description" : "",
     "versionName" : "1.0.0",
@@ -72,7 +72,21 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "uniStatistics": {  
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
+    },
+    "h5" : {
+        "title" : "",
+        "template" : "",
+        "router" : {
+            "mode" : "history",
+            "base" : "./"
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : false
+            }
+        },
+        "domain" : "http://zhichengdapay.com"
     }
 }

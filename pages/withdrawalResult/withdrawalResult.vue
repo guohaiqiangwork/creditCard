@@ -4,7 +4,7 @@
 			<view class="text_center">
 				<image src="../../static/image/holdAll/suree.png" class="img_top" mode=""></image>
 			</view>
-			<view class="font_size32 text_center">
+			<view class="font_size32 text_center font_weight600">
 				提现受理中
 			</view>
 			<view class="uni-flex font_size30 margin_left3 margin_top5 padding_top2 padding_bottom2">

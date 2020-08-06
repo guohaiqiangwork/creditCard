@@ -2,7 +2,7 @@
 	<view>
 		<view class="page_width">
 			<view class="moudel_one">
-				<view class="uni-flex border_bottom padding_bottom3 padding_top3">
+				<view class="uni-flex border_bottom padding_bottom3 " style="padding-top: 1%;">
 					<view class="width10">
 						<image src="../../static/image/icon/phoneN.png" class="one_img" mode=""></image>
 					</view>
@@ -10,7 +10,7 @@
 						<input type="number" maxlength="11" @input="keyPhone" placeholder="请输入您的联系电话" placeholder-style='color:#cccccc' />
 					</view>
 				</view>
-				<view class="uni-flex border_bottom padding_bottom3 padding_top3">
+				<view class="uni-flex border_bottom padding_bottom3 " style="padding-top: 5%;">
 					<view class="width10">
 						<image src="../../static/image/icon/yzm.png" class="one_img" style="height: 32upx;" mode=""></image>
 					</view>
@@ -25,7 +25,7 @@
 				</view>
 
 
-				<view class="uni-flex border_bottom padding_bottom3 padding_top3">
+				<view class="uni-flex border_bottom padding_bottom3 " style="padding-top: 5%;">
 					<view class="width10">
 						<image src="../../static/image/icon/card.png" class="two_img" mode=""></image>
 					</view>
@@ -35,7 +35,7 @@
 				</view>
 
 
-				<view class="uni-flex border_bottom padding_bottom3 padding_top3">
+				<view class="uni-flex border_bottom padding_bottom3 " style="padding-top: 5%;">
 					<view class="width10">
 						<image src="../../static/image/icon/name.png" class="three_img" mode=""></image>
 					</view>
@@ -63,7 +63,11 @@
 			return {
 				countdown: '获取验证码',
 				timestatus: false,
+				bankUrl:''
 			}
+		},
+		onLoad(option) {
+			this.bankUrl = option.urlFalg
 		},
 		methods: {
 			// 获取手机号
@@ -191,12 +195,19 @@
 							duration: 2000,
 							position: 'top',
 						});
-						uni.switchTab({
-							url: '/pages/tabBar/home/home'
-						});
+						if(this.bankUrl){
+							uni.navigateTo({
+								url:'../' +this.bankUrl+ '/' + this.bankUrl 
+							})
+						}else{
+							uni.switchTab({
+								url: '../tabBar/home/home'
+							});
+						}
+						
 					} else {
 						uni.showToast({
-							title: '姓名与身份证' + res.data.message,
+							title:res.data.message,
 							icon: 'none',
 							duration: 2000,
 							position: 'top',
@@ -217,6 +228,7 @@
 		border-radius: 30upx;
 		box-shadow: 0upx 2upx 14upx 0upx #dde2ef;
 		margin-top: 30upx;
+		padding-bottom: 0;
 	}
 
 	.one_img {

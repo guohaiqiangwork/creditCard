@@ -19,7 +19,7 @@
 		<view class="text_center" v-if="list.length == 0" >
 			<image src="../../static/image/noContent/noCapital.png" mode="" class="no_img"></image>
 			<view class="font_size28 font_colorcc">
-				暂无佣金记录~
+				暂无提现记录~
 			</view>
 		</view>
 	</view>

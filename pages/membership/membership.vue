@@ -5,19 +5,19 @@
 
 			<view class="uni-flex moudel_margin">
 				<view class="wi">
-					<image src="../../static/image/ces.png" class="top_img" mode=""></image>
+					<image :src="infoData.headImgurl" class="top_img" mode=""></image>
 				</view>
-				<view class="font_size40 margin_top3 margin_left3">
-					Flouexetine
+				<view class="font_size40 margin_top3 margin_left3 font_weight600" :style="vipF == 3 ? 'color:#ffffff' :'color:#333333'">
+					{{infoData.nickName}}
 				</view>
 			</view>
 
 			<view class="uni-flex margin_top8">
 				<view @click="funVip(index)"  :class="index +1 == vipF ? 'moudel_hui' :'moudel_huin' " v-for="(item,index) in vipList" :key="index">
 					<view class="">
-						¥<text class="font_size60">{{item.price}}</text>
+						¥<text class="font_size60 font_weight600">{{item.price}}</text>
 					</view>
-					<view class="font_size22">
+					<view class="font_size22" >
 						{{item.level_name}}
 					</view>
 				</view>
@@ -73,7 +73,7 @@
 			</view>
 
 			<view :class="payFalg == 0 ? 'bottom_btn' :'bottom_btn_no' " @click="goPayList" >
-				确认支付 {{payFalg}}
+				确认支付 
 			</view>
 		</view>
 	</view>
@@ -86,12 +86,17 @@
 				vipF:1,
 				usefalg:true,
 				vipList:[],
-				payFalg:''
+				payFalg:'',
+				infoData:{
+					headImgurl:'',
+					nickName:''
+				}
 			}
 		},
 		mounted() {
 			this.funGetMemberLevel();//获取当前人元等级
 				this.funGetLevelNum();//获取会员等级
+				this.funGetInfo()
 		},
 		methods: {
 			funVip:function(index){
@@ -100,6 +105,19 @@
 				this.vipF = index +1;
 				this.payFalg = this.vipList[index].isLevel
 			},
+			// 获取个人信息
+			funGetInfo: function() {
+				var data = {
+					memberId: uni.getStorageSync('memberId')
+				}
+				this.$http.get('/mb/info', data).then(res => {
+					console.log(JSON.stringify(res))
+					if (res.data.code == 200) {
+						this.infoData = res.data.data
+					}
+				})
+			},
+			
 			// 协议
 			tabFalg:function(){
 				this.usefalg = !this.usefalg

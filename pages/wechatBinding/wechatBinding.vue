@@ -2,21 +2,21 @@
 	<view>
 		<view class="page_width">
 			<view class="wech_moudel uni-flex">
-				<view class="width15 text_center margin_top2">
+				<view class="width10 text_center margin_top2">
 					<image src="../../static/image/icon/weix.png" style="width: 37upx;height: 30upx;" mode=""></image>
 				</view>
 				<view class="font_size30 font_colorff width20">
 					微信账号
 				</view>
 				<view class="margin_left3  font_colorcc">
-					<input type="text" value="" @input="keywx" placeholder="请输入您的微信号" placeholder-style="color:#cccccc" />
+					<input type="text" :value='weixValue' @input="keywx" placeholder="请输入您的微信号" placeholder-style="color:#cccccc" />
 				</view>
 			</view>
 
 
 			<view class="wech_moudel_two">
 				<view class="uni-flex">
-					<view class="font_colorff font_size30">
+					<view class="font_colorff font_size30" style="margin-top: -2%;">
 						微信二维码
 					</view>
 					<view class="margin_left5">
@@ -43,8 +43,16 @@
 			return {
 				wxImg: '../../static/image/holdAll/up.png',
 				wxImgBase: '',
-				wxNumber: ''
+				wxNumber: '',
+				weixValue:''
 			}
+		},
+		onLoad(option) {
+			if(option.falg){
+				this.weixValue =option.falg
+				this.wxNumber =option.falg
+			}
+			
 		},
 		methods: {
 			// 手机号
@@ -101,6 +109,15 @@
 
 			//绑定微信
 			funBindWxNumber :function() {
+				if(!this.wxNumber){
+					uni.showToast({
+						title: '请填写微信号',
+						icon: 'none',
+						duration: 2000,
+						position: 'center',
+					});
+					return
+				}
 				var data = {
 					wxNumber: this.wxNumber,
 					memberId: uni.getStorageSync('memberId'),
@@ -116,6 +133,7 @@
 							duration: 2000,
 							position: 'top',
 						});
+						uni.navigateBack()
 					}
 				});
 
@@ -133,13 +151,13 @@
 	.wech_moudel {
 		background: #3f4760;
 		border-radius: 20upx;
-		padding: 30upx;
+		padding: 20upx;
 		align-items: center;
 		margin-top: 30upx;
 	}
 
 	.wech_moudel_two {
-		padding: 30upx;
+		padding: 20upx;
 		background: #3f4760;
 		border-radius: 20upx;
 		margin-top: 30upx;

@@ -2,8 +2,8 @@
 	<view>
 		<!-- tab -->
 		<view class="background_colorff">
-			<view class="item_tab" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index + 1)" :style="tabIndex == index + 1 ?'color:#374CE5' :'' ">
-				{{item.name}}
+			<view :class="tabIndex == index + 1 ? 'item_tab_one' : 'item_tab'" v-for="(item,index) in tabList" :key="index" @click="tabSwitch(index + 1)" >
+				{{item.name}}  
 			</view>
 		</view>
 
@@ -13,11 +13,11 @@
 				<view class="" style="height: 13upx;">
 					<view class="top_border" v-if="item.isRead == 2"></view>
 				</view>
-				<view class="uni-flex display_space">
-					<view class="font_size30 width50 text_hidden ">
+				<view class="uni-flex display_space" style="margin-top: -2%;">
+					<view class="font_size30 width50 text_hidden font_weight600">
 						{{item.title}}
 					</view>
-					<view class="font_size22 font_colorcc ">
+					<view class="font_size22 font_colorcc " >
 						{{item.createTime}}
 					</view>
 				</view>
@@ -96,13 +96,23 @@
 		line-height: 88upx;
 	}
 
+.item_tab_one {
+		display: inline-block;
+		width: 33%;
+		text-align: center;
+		color: #374CE5;
+		font-size: 28upx;
+		height: 88upx;
+		line-height: 88upx;
+		font-weight: 700;
+	}
 	.list_width {
 		width: 94%;
 		margin-left: 3%;
 	}
 
 	.moudel_list {
-		height: 176upx;
+		height: 146upx;
 		background-color: #FFFFFF;
 		border-radius: 20upx;
 		padding: 3%;

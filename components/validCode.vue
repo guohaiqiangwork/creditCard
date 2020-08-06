@@ -143,7 +143,7 @@ export default {
 	}
 
 	.active {
-		border-color: #ff4b4b;
+		border-color: #999999;
 	}
 	.active .line {
 		display: block;
@@ -157,7 +157,7 @@ export default {
 		transform: translate(-50%, -50%);
 		width: 2upx;
 		height: 40upx;
-		background: #ff4b4b;
+		background: #999999;
 		animation: twinkling 1s infinite ease;
 	}
 

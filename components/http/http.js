@@ -7,7 +7,7 @@ let token = uni.getStorageSync('token');
 http.setConfig((config) => { /* 设置全局配置 */
 	if (process.env.VUE_APP_PLATFORM === 'h5') {
 		// config.baseUrl = '/dep';　
-		config.baseUrl = 'http://182.92.149.76';
+		config.baseUrl = 'http://manage.zhichengdapay.com';
 		// console.log('开发环境H5')　
 	} else {
 		//config.baseUrl = 'http://47.105.108.144:8080/primary';　

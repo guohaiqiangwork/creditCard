@@ -28,7 +28,7 @@
 				</view>
 			</view>
 			<view class="uni-flex">
-				<view class="list_btn1" @click="copyClick">
+				<view class="list_btn1" @click="openMoudel">
 					<image src="../../static/image/icon/wxb.png" style="width: 32upx;height: 26upx;" mode=""></image>
 					<text class="margin_left2">微信聊</text>
 				</view>
@@ -42,6 +42,29 @@
 				<image src="" mode=""></image>
 			</view>
 		</view>
+		
+		<template v-if="moudelFalg">
+			<view class="moudel_content">
+				<view class="product_content_block">
+					<view class="uni-flex" style="margin-top: 35upx;">
+						<view class="width33 " style="margin-left: 30upx;" @click="closeMoudel" >
+							<image src="../../static/image/icon/colse.png" style="width: 26upx;height: 26upx;" mode=""></image>
+						</view>
+						<view class="width33 font_size34 margin_left3">
+							微信号
+						</view>
+					</view>
+					<view class="font_size44 text_center" style="margin-top: 50upx;">
+						{{recommendData.wxNumber}}
+					</view>
+					<view class="moudel_btns" @click="copyClick">
+						复制微信
+					</view>
+				</view>
+			</view>
+				
+		</template>
+			
 				
 				
 	</view>
@@ -52,26 +75,36 @@
 		data() {
 			return {
 				recommendData: '',
-				phone:''
+				phone:'',
+				moudelFalg:false
 			}
 		},
 		mounted() {
 			this.funReferrer(); //获取数据
 		},
 		methods: {
+			closeMoudel:function(){
+				this.moudelFalg = false
+			},
+			openMoudel:function(){
+				this.moudelFalg = true
+			},
 			funReferrer: function() {
 				this.$http.get('/mb/referrer/' + uni.getStorageSync('memberId')).then(res => {
 					if (res.data.code == 200) {
 						this.recommendData = res.data.data;
 						this.phone = res.data.data.mobile
-						this.recommendData.mobile = this.recommendData.mobile.substr(0, 3) + '****' + this.recommendData.mobile.substr(
-							7, 10)
+						if(this.recommendData.mobile){
+							this.recommendData.mobile = this.recommendData.mobile.substr(0, 3) + '****' + this.recommendData.mobile.substr(
+								7, 10)
+						}
+					
 					}
 				})
 			},
 			// 复制
 			copyClick: function() {
-				console.log(0)
+				var _this = this;
 				if(!this.recommendData.wxNumber){
 					uni.showToast({
 						title: '用户未绑定微信',
@@ -90,6 +123,7 @@
 								duration: 2000,
 								position: 'top',
 							});
+							_this.moudelFalg = false
 						},
 						fail: function(err) {},
 						complete: function(res) {}
@@ -101,6 +135,15 @@
 			},
 			/* 联系客服 */
 			gotoTele(){
+				if(!this.phone){
+					uni.showToast({
+						title: '用户未绑定手机号',
+						icon: 'none',
+						duration: 2000,
+						position: 'center',
+					});
+					return
+				}
 				 uni.makePhoneCall({
 				 // 手机号
 				phoneNumber: this.phone, 
@@ -179,5 +222,35 @@
 		align-items: center;
 		line-height: 60upx;
 		margin-left: 10%;
+	}
+	
+	.product_content_block {
+		background-color: #FFFFFF;
+		border-radius: 20upx;
+		position: absolute;
+		top: 20%;
+		height: 362upx;
+		width: 600upx;
+		margin-left: 75upx;
+	}
+	.moudel_content {
+		height: 100%;
+		width: 100%;
+		position: fixed;
+		background-color: rgba(0, 0, 0, 0.4);
+		z-index: 99;
+		top: 0;
+		left: 0;
+	}
+	.moudel_btns{
+		width: 240upx;
+		height: 78upx;
+		background: #374ce5;
+		border-radius: 39upx;
+		line-height: 78upx;
+		text-align: center;
+		color: #FFFFFF;
+		margin-left: 30%;
+		margin-top: 30upx;
 	}
 </style>

@@ -14,7 +14,8 @@
 		data() {
 			return {
 				title: 'Hello',
-				appid:'wx5d7f40ad90aaa137'
+				appid:'wx5d7f40ad90aaa137',
+				redirect_url:'http://zhichengdapay.com/images/sysImage/register/index.html'
 			}
 		},
 		onLoad() {
@@ -30,9 +31,12 @@
 				// 截取地址中的code，如果没有code就去微信授权，如果已经获取到code了就直接把code传给后台获取openId
 				let code = this.getUrlCode('code')
 				if (code === null || code === '') {
-					window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + this.appid + '&redirect_uri=' +
-						encodeURIComponent('http://192.168.1.105/pages/index/index') +
-						'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect'
+					   // window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ this.appid +"&redirect_uri="+encode.UrlEncode(this.redirect_url)+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect"
+					   window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + this.appid + '&redirect_uri=' +this.redirect_url+ '&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
+					// window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5d7f40ad90aaa137&redirect_uri=http://zhichengdapay.com/index&response_type=code&scope=snsapi_userinfo&state=STATE&uin=MjM4MDAyMTU4MQ%3D%3D&key=0294f686ee695bc964746072fe0342842cd9f8d687aae28d33340227f35a2ed4bb2e24e76095880e3e8547d154930536&pass_ticket=Arqax/6aOHng5Dixwpd//s1CB9q/QdQX9dMs7ylDpvHoE1pe03vyNrsxK5MZEMNTfdVgrfmG39hjIxQCmhufFQ=='
+					// window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + this.appid + '&redirect_uri=' +
+					// 	encodeURIComponent('http://192.168.1.105/pages/index/index') +
+					// 	'&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect'
 					// redirect_uri是授权成功后，跳转的url地址，微信会帮我们跳转到该链接，并且通过？的形式拼接code，这里需要用encodeURIComponent对链接进行处理。
 					// 如果配置参数一一对应，那么此时已经通过回调地址刷新页面后，你就会再地址栏中看到code了。
 					// http://127.0.0.1/pages/views/profile/login/login?code=001BWV4J1lRzz00H4J1J1vRE4J1BWV4q&state=1

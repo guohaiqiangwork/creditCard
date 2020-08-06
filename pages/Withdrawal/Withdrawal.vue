@@ -11,15 +11,19 @@
 				提现说明
 			</view>
 		</view>
+		<view class="uni-flex  padding_bottom3 padding_top3 "  v-if="!getWxNumberF">
+			<view class="font_size30 margin_left3  width70">
+				微信账号
+				<text class="margin_left3" >{{infoData.wxNumber}}</text>
+			</view>
+			<view class="font_size30 text_center width30 " @click="open_moudel">
+				提现说明
+			</view>
+		</view>
 
 		<view class="page_width">
 			<view class="with_moudel">
-				<view class="font_size30 border_bottom padding_bottom3 padding_top3" v-if="false">
-					微信账号：
-					<text class="margin_left3">hkjhkhkhkjh</text>
-				</view>
-
-				<view class="border_bottom margin_top3">
+				<view class="border_bottom ">
 					<view class="font_size30">
 						提现金额
 					</view>
@@ -132,12 +136,16 @@
 				yeFalg: '', //余额
 				moneyValueF: '',
 				moneyFalg: '', //提现手续费
-				password: '' //密码
+				password: '', //密码
+				infoData:{
+					wxNumber:''
+				}
 			}
 		},
 		mounted() {
 			this.funGetWxNumber(); //是否绑定微信
 			this.funGetSxf(); //查询手续费比例
+			this.funGetInfo();//获取微信号
 		},
 		methods: {
 			goBind() {
@@ -221,6 +229,15 @@
 			},
 			// 打开密码
 			open_password() {
+				if(Number(this.moneyValueF)  <= 0 || !this.moneyValueF){
+					uni.showToast({
+						title: '请填写金额',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return
+				}
 				this.payFalg = true;
 				this.money = Number(this.moneyValueF) - Number(this.moneyValueF) * Number(this.moneyFalg)
 				this.moneyTx = Number(this.moneyValueF) * Number(this.moneyFalg)
@@ -230,11 +247,10 @@
 			},
 
 			// 是否绑定微信
-			funGetWxNumber() {
+			funGetWxNumber:function() {
 				this.$http.get('/mb/getWxNumber/' + uni.getStorageSync('memberId'), ).then(res => {
-					console.log(JSON.stringify(res));
 					if (res.data.code != 200) {
-						this.getWxNumberF = false;
+						this.getWxNumberF = true;
 					}
 				}).catch(err => {
 
@@ -259,12 +275,26 @@
 				this.moneyValueF = this.yeFalg;
 			},
 			// 获取输入框值
-			keyMoney(event) {
+			keyMoney:function(event) {
 				this.moneyValueF = event.target.value
+	
 				if (Number(this.moneyValueF) > Number(this.yeFalg)) {
 					this.moneyValue = Number(this.yeFalg)
 				}
-			}
+			},
+			
+			// 获取个人信息
+			funGetInfo: function() {
+				var data = {
+					memberId: uni.getStorageSync('memberId')
+				}
+				this.$http.get('/mb/info', data).then(res => {
+					if (res.data.code == 200) {
+						this.infoData = res.data.data
+					}
+				})
+			},
+			
 		}
 	}
 </script>
@@ -272,15 +302,16 @@
 <style lang="scss">
 	.with_moudel {
 
-		height: 490upx;
+		height: 380upx;
 		background: #ffffff;
 		border-radius: 20upx;
 		margin-top: 5%;
 		padding: 30upx;
+		box-shadow: 0upx 4upx 14upx 0upx #dde2ef; 
 	}
 
 	.tx_btn {
-		width: 614upx;
+		width: 645upx;
 		height: 90upx;
 		color: #FFFFFF;
 		text-align: center;

@@ -65,7 +65,7 @@ import wxParseTemplate from './components/wxParseTemplate0';
 			},
 			noData: {
 				type: String,
-				default: '<div style="color: red;">数据不能为空</div>'
+				default: '<div style="color: red;"></div>'
 			},
 			startHandler: {
 				type: Function,

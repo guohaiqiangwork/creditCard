@@ -6,9 +6,12 @@
 				<view class="font_size30 width15">
 					手机号
 				</view>
-				<view class="margin_top1">
+				<view class="margin_top1" v-if="!infoData.mobile">
 					<input type="text" class="margin_left2" maxlength="11" value="" @input="keyPhone" placeholder="请输入您的手机号"
 					 placeholder-style='color:#cccccc' />
+				</view>
+				<view class="margin_top1 font_colorcc margin_left2" v-else>
+					{{infoData.mobile}}
 				</view>
 			</view>
 			<view class="uni-flex padding_top4 padding_bottom4 border_bottom margin_left3 margin_right3">
@@ -48,8 +51,14 @@
 				timestatus: false,
 				userPhone: '', //手机好
 				phoneCode: '', //验证码
-				passwordCode: '' //密码
+				passwordCode: '', //密码
+				infoData:{
+					mobile:''
+				}
 			}
+		},
+		onShow() {
+			this.funGetInfo()
 		},
 		methods: {
 			// 手机号
@@ -109,7 +118,7 @@
 				})
 			},
 			// 倒计时
-			countDown() {
+			countDown:function() {
 				var that = this;
 				if (!that.countdown) {
 					that.disabled = false;
@@ -145,7 +154,25 @@
 				}).catch(err => {
 				
 				})
+			},
+			
+			
+			// 获取个人信息
+			funGetInfo: function() {
+				var data = {
+					memberId: uni.getStorageSync('memberId')
+				};
+				this.$http.get('/mb/info', data).then(res => {
+				
+					if (res.data.code == 200) {
+						this.infoData = res.data.data;
+						if(this.infoData.mobile){
+							this.userPhone =this.infoData.mobile
+						}
+					}
+				});
 			}
+			
 
 
 		}

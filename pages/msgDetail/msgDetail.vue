@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="page_width margin_top5">
-			<view class=" font_size30 ">
+			<view class=" font_size30 font_weight600">
 				{{msgContent.title}}
 			</view>
 			<view class="font_size28 font_color66 margin_top3">
@@ -39,5 +39,8 @@
 </script>
 
 <style>
+	page{
+		background-color: #FFFFFF;
+	}
 
 </style>
