@@ -219,7 +219,7 @@
 				})
 			},
 			// 倒计时
-			countDown() {
+			countDown:function() {
 				var that = this;
 				if (!that.countdown) {
 					that.disabled = false;
@@ -240,7 +240,7 @@
 					memberId:uni.getStorageSync('memberId'),
 					code:this.phoneCode
 				}
-				this.$http.post('/mb/changeMobile', data,true).then(res => {
+				this.$http.post('/mb/changeMobile', data).then(res => {
 					console.log(JSON.stringify(data))
 					if(res.data.code == 200){
 						uni.showToast({
@@ -249,6 +249,12 @@
 							duration: 2000,
 							position: 'top',
 						});
+						this.noPhone = false;
+						var _this  = this
+						setTimeout(function(){
+							_this.funGetInfo()
+						},1000)
+						
 					}
 				});
 			

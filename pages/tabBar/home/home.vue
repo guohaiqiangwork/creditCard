@@ -2,6 +2,8 @@
 	<view>
 		<!-- 内容块 -->
 		<view class="">
+			<!-- <view class="" @click="goHOme">短发里卡多理解</view> -->
+
 			<!-- 绑定 跳转-->
 			<!-- <image src="../../../static/image/ces.png" mode="" class="top_img"  @click="goToPage('bindingIdentity')"></image> -->
 			<view class="">
@@ -73,7 +75,7 @@
 				</view>
 
 				<!-- 资金明细 -->
-				<view class="uni-flex display_space margin_top3" @click="goToPage('capitalRecord','0')">
+				<view class="uni-flex display_space margin_top3" @click="goToPage('capitalRecord', '0')">
 					<view class="font_size30 font_weight600">资金明细</view>
 					<view class="font_size20 font_color66 margin_right3 " style="margin-top: 10upx;">
 						查看明细
@@ -81,19 +83,19 @@
 					</view>
 				</view>
 				<view class="">
-					<view class="moudel_bj" >
+					<view class="moudel_bj">
 						<view class="text_center ">
 							<view class=" font_size24">累计收益（元）</view>
-							<view class="font_size44" @click="goToPage('capitalRecord','0')">{{ funds.totalIncomeAmount }}</view>
+							<view class="font_size44" @click="goToPage('capitalRecord', '0')">{{ funds.totalIncomeAmount }}</view>
 						</view>
 						<view class="uni-flex">
-							<view class="width50 text_center" >
+							<view class="width50 text_center">
 								<view class="font_size24">佣金总额（元）</view>
-								<view class="font_size34" @click="goToPage('capitalRecord','1')">{{ funds.commissionAmount }}</view>
+								<view class="font_size34" @click="goToPage('capitalRecord', '1')">{{ funds.commissionAmount }}</view>
 							</view>
-							<view class="width50 text_center" >
+							<view class="width50 text_center">
 								<view class="font_size24">提成总额（元）</view>
-								<view class="font_size34" @click="goToPage('capitalRecord','2')">{{ funds.deductAmount }}</view>
+								<view class="font_size34" @click="goToPage('capitalRecord', '2')">{{ funds.deductAmount }}</view>
 							</view>
 						</view>
 					</view>
@@ -146,13 +148,16 @@ export default {
 			redirect_url: 'http://zhichengdapay.com/h5_web/index.html'
 		};
 	},
+	onLoad(option) {
+		console.log(option);
+	},
 	onShow() {
 		// uni.setStorageSync('memberId', "1290207820414787586");
 		// this.init();
 		// // return
-		if(uni.getStorageSync('memberId')){
+		if (uni.getStorageSync('memberId')) {
 			this.init();
-		}else{
+		} else {
 			let code = uni.getStorageSync('weiXinCode');
 			let weiXinCode = this.getUrlCode('code');
 			// console.log(weiXinCode + '数据');
@@ -163,12 +168,23 @@ export default {
 			} else {
 				this.getCode();
 			}
-			
 		}
-		
+		console.log('处理数据' + uni.getStorageSync('bingDId'));
 	},
+	
+	onBackPress() {
+				
+				return true //return true的意思是禁止返回到上一个界面
+			},
 
 	methods: {
+		// goHOme: function() {
+			
+		// 	// uni.navigateTo({
+		// 	// 	url: '../../bingWX/bingWX?bingDId=00'
+		// 	// });
+		// },
+
 		getCode: function() {
 			// console.log('234920-492- ');
 			// 截取地址中的code，如果没有code就去微信授权，如果已经获取到code了就直接把code传给后台获取openId
@@ -207,8 +223,22 @@ export default {
 						// console.log('通过code 换取存心' + res);
 						// 登录成功，可以将用户信息和token保存到缓存中
 						// uni.setStorageSync('weiXinCode',res.data.data.openId);
-						uni.setStorageSync('weiXinopenId', res.data.data.openId);
+						console.log('接口返回' + JSON.stringify(res))
+						uni.setStorageSync('weiXinopenId', res.data.data.openid);
 						uni.setStorageSync('memberId', res.data.data.mbId);
+						console.log('我在地'+ uni.getStorageSync('bingDId'))
+						console.log('oppid' + uni.getStorageSync('weiXinopenId'))
+						if (uni.getStorageSync('bingDId')) {
+							var data = {
+								parentId: uni.getStorageSync('bingDId'),
+								openid: uni.getStorageSync('weiXinopenId')
+							};
+							this.$http.post('/mb/saveOpenId',data,true).then(res => {
+								if (res.data.code == 200) {
+									this.imgList = res.data.data;
+								}
+							});
+						}
 						this.init();
 					}
 				}
@@ -233,7 +263,6 @@ export default {
 		init: function() {
 			// 获取首页轮播
 			this.$http.get('/bannerApi/banner').then(res => {
-		
 				if (res.data.code == 200) {
 					this.imgList = res.data.data;
 				}
@@ -257,7 +286,6 @@ export default {
 			this.$http
 				.get('/acc/funds/' + data.memberId)
 				.then(res => {
-				
 					if (res.data.code == 200) {
 						this.funds = res.data.data;
 					}
@@ -270,7 +298,6 @@ export default {
 			this.$http
 				.get('/apply/applyCreditCardView', dataone)
 				.then(res => {
-					
 					if (res.data.code == 200) {
 						this.xinCardUrl = res.data.data;
 						// console.log(this.xinCardUrl +'促进健康健康');
@@ -282,10 +309,8 @@ export default {
 			this.$http
 				.get('/apply/queryOrder', dataone)
 				.then(res => {
-					
 					if (res.data.code == 200) {
 						this.orderUrl = res.data.data;
-						
 					}
 				})
 				.catch(err => {});
@@ -299,32 +324,47 @@ export default {
 				memberId: uni.getStorageSync('memberId')
 			};
 			// console.log('99')
-			// 获取首页轮播
-			this.$http.get('/mb/isBindIdCard',data).then(res => {
+			this.$http.get('/mb/isBindIdCard', data).then(res => {
 				console.log(JSON.stringify(res));
 				if (res.data.code == 200) {
-					 // window.open(this.xinCardUrl);
-					 console.log('进来了' + this.xinCardUrl )
-					 window.location.href = this.xinCardUrl
+					// window.open(this.xinCardUrl);
+					console.log('进来了' + this.xinCardUrl);
+					window.location.href = this.xinCardUrl;
 					// this.imgList = res.data.data;
-				}else{
+				} else {
 					uni.navigateTo({
-						url:'../../bindingIdentity/bindingIdentity'
-					})
+						url: '../../bindingIdentity/bindingIdentity'
+					});
 				}
 			});
 
 			//
 		},
-		goToPage: function(falg,type) {
+		goToPage: function(falg, type) {
 			console.log(falg);
-			console.log(type)
+			console.log(type);
 			let urlFalg = falg;
 			if (urlFalg == 'order') {
 				// window.open(this.orderUrl);
-				 console.log('进来了' + this.orderUrl )
-				 window.location.href = this.orderUrl
-			} else if(urlFalg == 'capitalRecord'){
+				// console.log('进来了' + this.orderUrl);
+				var data = {
+					memberId: uni.getStorageSync('memberId')
+				};
+				this.$http.get('/mb/isBindIdCard', data).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						// window.open(this.xinCardUrl);
+						console.log('进来了' + this.xinCardUrl);
+							window.location.href = this.orderUrl;
+						// this.imgList = res.data.data;
+					} else {
+						uni.navigateTo({
+							url: '../../bindingIdentity/bindingIdentity'
+						});
+					}
+				});
+			
+			} else if (urlFalg == 'capitalRecord') {
 				uni.navigateTo({
 					url: '../../capitalRecord/capitalRecord?type=' + type
 				});
@@ -348,9 +388,9 @@ export default {
 </script>
 
 <style lang="less">
-	page{
-		background-color: #FFFFFF;
-	}
+page {
+	background-color: #ffffff;
+}
 .moudel_width {
 	width: 94%;
 	margin-left: 3%;
@@ -401,7 +441,7 @@ export default {
 .card_img1 {
 	width: 330upx;
 	height: 140upx;
-	box-shadow: 0px 4px 16px 0px #dde2ef; 
+	box-shadow: 0px 4px 16px 0px #dde2ef;
 	border-radius: 30upx;
 }
 
@@ -409,9 +449,8 @@ export default {
 	width: 330upx;
 	height: 140upx;
 	margin-left: 45upx;
-	box-shadow: 0px 4px 16px 0px #dde2ef; 
-		border-radius: 30upx;
-		
+	box-shadow: 0px 4px 16px 0px #dde2ef;
+	border-radius: 30upx;
 }
 
 .icon_right {

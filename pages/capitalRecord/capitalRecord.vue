@@ -14,8 +14,8 @@
 					</view>
 				</view>
 				<view class="width50   uni-flex padding_top2" @click="funTime">
-					<view class="width60 text_center">
-						日期选择器
+					<view class="width60 " style="text-align: right;margin-right: 8%;">
+						日期筛选
 					</view>
 					<view class="">
 						<image src="../../static/image/icon/downs.png" class="selsect_img" style="margin-top: -1%;" mode=""></image>
@@ -196,11 +196,13 @@
 					});
 				} else if (d1 > d2) {
 					uni.showToast({
-						title: '结束时间小于开始日期',
+						title: '结束时间不小于开始时间',
 						icon: 'none',
 						duration: 2000,
 						position: 'top',
 					});
+					this.endDateOne = '请选择'
+					this.dataEndDate = ''
 					return;
 				}
 				var data = {

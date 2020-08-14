@@ -5,7 +5,7 @@
 				<view class="width10 text_center margin_top2">
 					<image src="../../static/image/icon/weix.png" style="width: 37upx;height: 30upx;" mode=""></image>
 				</view>
-				<view class="font_size30 font_colorff width20">
+				<view class="font_size30 font_colorff width25">
 					微信账号
 				</view>
 				<view class="margin_left3  font_colorcc">
@@ -26,8 +26,7 @@
 			</view>
 
 			<view class="text_center font_size28 margin_top3" style="color: #CFDBFF; width: 70%;margin-left: 15%;">
-				温馨提示:请输入正确的微信账号，方便推荐
-				人与团队的联系！
+				温馨提示:请输入正确的微信账号，方便推荐人与团队的联系！
 			</view>
 
 			<view class="bottom_btn_wech" @click="funBindWxNumber">
@@ -44,15 +43,19 @@
 				wxImg: '../../static/image/holdAll/up.png',
 				wxImgBase: '',
 				wxNumber: '',
-				weixValue:''
+				weixValue:'',
+				infoData:''
 			}
 		},
 		onLoad(option) {
-			if(option.falg){
-				this.weixValue =option.falg
-				this.wxNumber =option.falg
-			}
+			// if(option.falg){
+			// 	this.weixValue =option.falg
+			// 	this.wxNumber =option.falg
+			// }
 			
+		},
+		mounted() {
+			this.funGetInfo()
 		},
 		methods: {
 			// 手机号
@@ -63,7 +66,7 @@
 			chooseTheImg() {
 				uni.chooseImage({
 					count: 1, //图片可选择数量
-					sizeType: ['original', 'compressed'], //original 原图，compressed 压缩图，默认二者都有
+					sizeType: ['compressed'], //original 原图，compressed 压缩图，默认二者都有
 					sourceType: ['album'], //album 从相册选图，camera 使用相机，默认二者都有。
 					success: res => {
 						let imgFiles = res.tempFilePaths //图片的本地文件路径列表
@@ -98,6 +101,12 @@
 						let base64 = wx.arrayBufferToBase64(ress.data); //把arraybuffer转成base64 
 						base64 = 'data:image/jpeg;base64,' + base64 //不加上这串字符，在页面无法显示的哦
 						this.wxImgBase = base64;
+						uni.showToast({
+							title: '上传成功',
+							icon: 'none',
+							duration: 2000,
+							position: 'top',
+						});
 					},
 					fail: (e) => {
 						console.log("图片转换失败");
@@ -124,7 +133,6 @@
 					wxQr: this.wxImgBase
 				}
 				this.$http.post('/mb/bindWxNumber', data, true).then(res => {
-					console.log(JSON.stringify(data))
 					if (res.data.code == 200) {
 						this.wxImg= '../../static/image/holdAll/up.png',
 						uni.showToast({
@@ -137,8 +145,28 @@
 					}
 				});
 
-			}
-
+			},
+			
+			// 获取个人信息
+			funGetInfo: function() {
+				var data = {
+					memberId: uni.getStorageSync('memberId')
+				};
+				this.$http.get('/mb/info', data).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						this.infoData = res.data.data;
+						if(this.infoData.wxQr){
+							this.wxImg = this.infoData.wxQr
+						}
+						if(this.infoData.wxNumber){
+							this.weixValue = this.infoData.wxNumber;
+							this.wxNumber =this.infoData.wxNumber;
+						}
+					}
+				});
+			},
+			
 		}
 	}
 </script>

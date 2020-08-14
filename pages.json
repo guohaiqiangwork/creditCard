@@ -281,7 +281,18 @@
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/bingWX/bingWX",
+           "style": {
+           	"app-plus": {
+           		"titleNView": false,
+           		"backgroundTextStyle": "dark"
+           		// "navigationBarTitleText":"绑定用户"
+           	},
+           	"enablePullDownRefresh": false
+           }
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "卡网通",

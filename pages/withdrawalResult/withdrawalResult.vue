@@ -28,7 +28,7 @@
 					到账微信号
 				</view>
 				<view class="">
-					￥{{dataMoudel.wxNumber}}
+					{{dataMoudel.wxNumber}}
 				</view>
 			</view>
 			<view class="uni-flex font_size30 margin_left3 padding_top2 padding_bottom2">
@@ -36,7 +36,7 @@
 					提现时间
 				</view>
 				<view class="">
-					￥{{dataMoudel.createTime}}
+					{{dataMoudel.createTime}}
 				</view>
 			</view>
 		</view>

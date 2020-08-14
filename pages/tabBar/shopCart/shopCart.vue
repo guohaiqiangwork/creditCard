@@ -40,7 +40,12 @@
 						<view class="uni-flex">
 							<view class="font_size30 text_hidden">{{ item.nickName }}</view>
 							<view class="">
-								<view class="my_vipbj">{{ item.levelName }}</view>
+								<!-- <view class="my_vipbj">{{ item.levelName }}</view> -->
+								<view class="my_vipbj" v-if="item.levelName == '普通会员'">{{ item.levelName }}</view>
+								<view class="my_vipbjC" v-if="item.levelName == '初级会员'">{{ item.levelName }}</view>
+								<view class="my_vipbjZ" v-if="item.levelName == '中级会员'">{{ item.levelName }}</view>
+								<view class="my_vipbjG" v-if="item.levelName == '高级会员'">{{ item.levelName }}</view>
+													
 							</view>
 						</view>
 						<view class="uni-flex">
@@ -186,6 +191,7 @@ export default {
 		qx() {
 			this.keyWord = '';
 			this.inputValue = '';
+			this.tabIndex == 0 ? this.funTeamDirectPush() : this.funPushTeam();
 		},
 		// 我的二维码
 		getMyQcode: function(wxQr) {
@@ -494,8 +500,55 @@ export default {
 	margin-left: 10upx;
 	padding-right: 1%;
 }
+// .my_vipbj {
+// 	width: 130upx;
+// 	height: 30upx;
+// 	background: url(../../../static/image/icon/vipb.png) no-repeat;
+// 	font-size: 22upx;
+// 	background-size: 100%;
+// 	color: #ffe600;
+// 	text-align: right;
+// 	line-height: 30upx;
+// 	padding-right: 2%;
+// }
+
+.my_vipbjZ {
+	width: 130upx;
+	height: 30upx;
+	background: url(../../../static/image/icon/zjh.png) no-repeat;
+	font-size: 22upx;
+	background-size: 100%;
+	color: #333333;
+	text-align: right;
+	line-height: 30upx;
+	padding-right: 2%;
+}
+.my_vipbjG {
+	width: 130upx;
+	height: 30upx;
+	background: url(../../../static/image/icon/gjh.png) no-repeat;
+	font-size: 22upx;
+	background-size: 100%;
+	color: #ffe600;
+	text-align: right;
+	line-height: 30upx;
+	padding-right: 2%;
+}
 .nolist{
 	width: 402upx;
 	height: 422upx;
+}
+.my_vipbjC {
+	width: 130upx;
+	height: 30upx;
+	background: url(../../../static/image/icon/cjh.png) no-repeat;
+	font-size: 22upx;
+	background-size: 100%;
+	color: #333333;
+	text-align: right;
+	line-height: 30upx;
+	padding-right: 8%;
+	margin-top: 10upx;
+	margin-left: 3%;
 }
 </style>

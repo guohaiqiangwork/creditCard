@@ -3,19 +3,19 @@
 		<view class="set_moudel">
 
 			<view class="uni-flex padding_top4 padding_bottom4 border_bottom margin_left3 margin_right3">
-				<view class="font_size30 width15">
+				<view class="font_size30 width20">
 					手机号
 				</view>
 				<view class="margin_top1" v-if="!infoData.mobile">
-					<input type="text" class="margin_left2" maxlength="11" value="" @input="keyPhone" placeholder="请输入您的手机号"
-					 placeholder-style='color:#cccccc' />
+					<input type="text" class="margin_left2 font_size30" maxlength="11" value="" @input="keyPhone" placeholder="请输入您的手机号"
+					 placeholder-style='color:#cccccc;font-size:30upx' />
 				</view>
-				<view class="margin_top1 font_colorcc margin_left2" v-else>
+				<view class="margin_top1 font_colorcc margin_left2 font_size30" v-else>
 					{{infoData.mobile}}
 				</view>
 			</view>
 			<view class="uni-flex padding_top4 padding_bottom4 border_bottom margin_left3 margin_right3">
-				<view class="font_size30 width15">
+				<view class="font_size30 width20">
 					验证码
 				</view>
 				<view class="margin_top1 width55">
@@ -27,11 +27,11 @@
 			</view>
 
 			<view class="uni-flex padding_top4 padding_bottom4  margin_left3 margin_right3">
-				<view class="font_size30 width15">
+				<view class="font_size30 width20">
 					新密码
 				</view>
 				<view class="margin_top1 ">
-					<input type="number" class="margin_left2" maxlength="6" @input="keyPassword" placeholder="请输入要修改的密码"
+					<input type="password" class="margin_left2" maxlength="6" @input="keyPassword" placeholder="请输入要修改的密码"
 					 placeholder-style='color:#cccccc' />
 				</view>
 			</view>

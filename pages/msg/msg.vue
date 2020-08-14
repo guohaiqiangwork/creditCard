@@ -30,7 +30,7 @@
 		<view class="text_center" v-if="msglist.length == 0">
 			<image src="../../static/image/noContent/noMsg.png" mode="" style="width: 392upx;height: 410upx;"></image>
 			<view class="font_size28 font_colorcc">
-				暂无提成记录~
+				暂无消息~
 			</view>
 		</view>
 

@@ -10,12 +10,11 @@
 						<view class="my_vipbjC" v-if="infoData.levelName == '初级会员'">{{ infoData.levelName }}</view>
 						<view class="my_vipbjZ" v-if="infoData.levelName == '中级会员'">{{ infoData.levelName }}</view>
 						<view class="my_vipbjG" v-if="infoData.levelName == '高级会员'">{{ infoData.levelName }}</view>
-						
-						
+					
 					</view>
 				</view>
 
-				<view class="money_moudel">
+				<view class="money_moudel">		
 					<view class="uni-flex">
 						<view class="width45 margin_top3 " style="margin-left: 4%;">
 							<view class="font_size24">我的余额</view>
@@ -37,7 +36,8 @@
 				<view class="font_size28 font_weight600" style="margin-top: -2%;">我的服务</view>
 				<view class="uni-flex padding_top3 padding_bottom3 border_bottom" v-for="(item, index) in tabList" :key="index" @click="goToPage(item.urlFalg)">
 					<view class="" style="width: 7%;"><image :src="item.url" :class="item.img_class" style="margin-top: 1%;" mode=""></image></view>
-					<view class="width70 margin_left2" style="margin-top: -1%;">{{ item.name }}</view>
+					<view class="width70 margin_left2" style="margin-top: 0;" v-if="item.name == '我的推荐人' ">{{ item.name }}</view>
+					<view class="width70 margin_left2" style="margin-top: -1%;" v-else>{{ item.name }}</view>
 					<view class="width20 text_right"><image src="../../../static/image/icon/rightc.png" style="width: 16upx;height: 26upx;" mode=""></image></view>
 				</view>
 
@@ -176,9 +176,13 @@ export default {
 		this.funGetInfo(); //获取个人信息
 	},
 	methods: {
+		
 		returnFun: function() {
 			uni.removeStorageSync('userId');
 			uni.removeStorageSync('token');
+		},
+		closeMoudel:function(){
+			this.payFalg = false
 		},
 		// 获取个人信息
 		funGetInfo: function() {
@@ -221,6 +225,24 @@ export default {
 						});
 					}
 				});
+		
+			} else if(urlFalg == 'recommended'){
+					this.$http.get('/mb/referrer/' + uni.getStorageSync('memberId')).then(res => {
+						if (res.data.code == 200) {
+							uni.navigateTo({
+								url: '../../' + urlFalg + '/' + urlFalg
+							});
+						
+						}else{
+							uni.showToast({
+								title: '您还没有推荐人~!',
+								icon: 'none',
+								duration: 2000,
+								position: 'top',
+							});
+							return
+						}
+					})
 			} else {
 				uni.navigateTo({
 					url: '../../' + urlFalg + '/' + urlFalg
@@ -369,7 +391,7 @@ export default {
 	padding-right: 2%;
 }
 .money_moudel {
-	width: 690upx;
+	// width: 690upx;
 	height: 170upx;
 	background: linear-gradient(#374ce5, #0dadfd);
 	border-radius: 30upx;

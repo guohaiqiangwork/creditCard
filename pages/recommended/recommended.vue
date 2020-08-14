@@ -16,9 +16,14 @@
 						<view class="width50 text_hidden">
 							{{recommendData.nickName}}
 						</view>
-						<view class="my_vipbj">
+						<!-- <view class="my_vipbj">
 							{{recommendData.levelName}}
-						</view>
+						</view> -->
+						<view class="my_vipbj" v-if="recommendData.levelName == '普通会员'">{{ recommendData.levelName }}</view>
+						<view class="my_vipbjC" v-if="recommendData.levelName == '初级会员'">{{ recommendData.levelName }}</view>
+						<view class="my_vipbjZ" v-if="recommendData.levelName == '中级会员'">{{ recommendData.levelName }}</view>
+						<view class="my_vipbjG" v-if="recommendData.levelName == '高级会员'">{{ recommendData.levelName }}</view>
+											
 					</view>
 					<view class="font_size24">
 						手机号：
@@ -87,6 +92,15 @@
 				this.moudelFalg = false
 			},
 			openMoudel:function(){
+				if(!this.recommendData.wxNumber){
+					uni.showToast({
+						title: '用户未绑定微信',
+						icon: 'none',
+						duration: 2000,
+						position: 'top',
+					});
+					return;
+				}
 				this.moudelFalg = true
 			},
 			funReferrer: function() {
@@ -196,6 +210,39 @@
 		margin-top: 10upx;
 		margin-left: 10upx;
 		padding-right: 1%;
+	}
+	.my_vipbjC {
+		width: 130upx;
+		height: 30upx;
+		background: url(../../static/image/icon/cjh.png) no-repeat;
+		font-size: 22upx;
+		background-size: 100%;
+		color: #333333;
+		text-align: right;
+		line-height: 30upx;
+		padding-right: 2%;
+	}
+	.my_vipbjZ {
+		width: 130upx;
+		height: 30upx;
+		background: url(../../static/image/icon/zjh.png) no-repeat;
+		font-size: 22upx;
+		background-size: 100%;
+		color: #333333;
+		text-align: right;
+		line-height: 30upx;
+		padding-right: 2%;
+	}
+	.my_vipbjG {
+		width: 130upx;
+		height: 30upx;
+		background: url(../../static/image/icon/gjh.png) no-repeat;
+		font-size: 22upx;
+		background-size: 100%;
+		color: #ffe600;
+		text-align: right;
+		line-height: 30upx;
+		padding-right: 2%;
 	}
 
 	.list_btn1 {
